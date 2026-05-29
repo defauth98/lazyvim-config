@@ -1,8 +1,11 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
   cmd = "Neotree",
+  source_selector = {
+    winbar = true,
+    statusline = true,
+  },
   opts = {
-
     window = {
       mappings = {
         ["o"] = "open",
@@ -10,7 +13,6 @@ return {
           local node = state.tree:get_node()
           if not node or not node.id then
             vim.notify("No node selected.", vim.log.levels.WARN)
-
             return
           end
 
@@ -45,7 +47,6 @@ return {
             end
 
             local value_to_copy = choice.value
-
             vim.fn.setreg("+", value_to_copy)
             vim.notify("Copied to clipboard: " .. value_to_copy)
           end)

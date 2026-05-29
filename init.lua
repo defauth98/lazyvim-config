@@ -1,3 +1,15 @@
--- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")
--- eu apenas quero digital sem coisas na minha tela mano
+require("neo-tree").setup({
+  source_selector = {
+    winbar = true,
+    statusline = false,
+  },
+  filesystem = {
+    filtered_items = {
+      hide_dotfiles = false,
+      hide_gitignored = false,
+      hide_ignored = false,
+      hide_hidden = true,
+    },
+  },
+})

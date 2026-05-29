@@ -13,9 +13,7 @@ return {
   },
   {
     "rcarriga/nvim-notify",
-    opts = {
-      enabled = false,
-    },
+    enabled = false,
   },
   {
     "folke/noice.nvim",
