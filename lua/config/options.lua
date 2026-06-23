@@ -1,10 +1,9 @@
-vim.g.lazyvim_eslint_auto_format = true
-vim.g.lazyvim_prettier_needs_config = false
-vim.g.lazyvim_ts_lsp = "ts_ls"
+vim.g.lazyvim_ts_lsp = "tsgo"
+vim.diagnostic.config({
+  virtual_text = false,
+})
 
 return {
-  { import = "lazyvim.plugins.extras.test.core" },
-  { import = "lazyvim.plugins.extras.ui.mini-starter" },
   {
     "LazyVim/LazyVim",
     opts = {
@@ -13,9 +12,7 @@ return {
   },
   {
     "rcarriga/nvim-notify",
-    opts = {
-      enabled = false,
-    },
+    enabled = false,
   },
   {
     "folke/noice.nvim",
