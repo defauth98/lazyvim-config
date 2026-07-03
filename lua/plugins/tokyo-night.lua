@@ -1,11 +1,13 @@
 return {
   "folke/tokyonight.nvim",
-  opts = {
-    style = "night",
-    transparent = true,
-    styles = {
-      sidebars = "transparent",
-      floats = "transparent",
-    },
-  },
+  opts = function(_, opts)
+    opts.style = "night"
+    opts.transparent = true
+
+    opts.styles = opts.styles or {}
+    opts.styles.sidebars = "transparent"
+    opts.styles.floats = "transparent"
+
+    return opts
+  end,
 }

@@ -9,23 +9,21 @@ return {
 
       "folke/snacks.nvim",
       optional = true,
-      opts = {
-        input = {}, -- Enhances `ask()`
-        picker = { -- Enhances `select()`
-          actions = {
-            opencode_send = function(...)
-              return require("opencode").snacks_picker_send(...)
-            end,
-          },
-          win = {
-            input = {
-              keys = {
-                ["<a-a>"] = { "opencode_send", mode = { "n", "i" } },
-              },
-            },
-          },
-        },
-      },
+      opts = function(_, opts)
+        opts.input = opts.input or {} -- Enhances `ask()`
+        opts.picker = opts.picker or {} -- Enhances `select()`
+        opts.picker.actions = opts.picker.actions or {}
+        opts.picker.actions.opencode_send = function(...)
+          return require("opencode").snacks_picker_send(...)
+        end
+
+        opts.picker.win = opts.picker.win or {}
+        opts.picker.win.input = opts.picker.win.input or {}
+        opts.picker.win.input.keys = opts.picker.win.input.keys or {}
+        opts.picker.win.input.keys["<a-a>"] = { "opencode_send", mode = { "n", "i" } }
+
+        return opts
+      end,
     },
   },
   config = function()
