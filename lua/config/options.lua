@@ -3,6 +3,15 @@ vim.diagnostic.config({
   virtual_text = false,
 })
 
+vim.opt.diffopt = {
+  "internal",
+  "filler",
+  "closeoff",
+  "algorithm:histogram",
+  "indent-heuristic",
+  "linematch:60",
+}
+
 return {
   {
     "LazyVim/LazyVim",

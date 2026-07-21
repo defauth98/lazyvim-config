@@ -2,6 +2,15 @@ return {
   "nvim-neo-tree/neo-tree.nvim",
   cmd = "Neotree",
   opts = function(_, opts)
+    opts.filesystem = opts.filesystem or {}
+    opts.filesystem.group_empty_dirs = true
+
+    opts.buffers = opts.buffers or {}
+    opts.buffers.group_empty_dirs = true
+
+    opts.git_status = opts.git_status or {}
+    opts.git_status.group_empty_dirs = true
+
     opts.source_selector = opts.source_selector or {}
     opts.source_selector.winbar = true
     opts.source_selector.statusline = true
