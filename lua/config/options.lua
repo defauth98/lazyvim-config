@@ -1,7 +1,7 @@
-vim.g.lazyvim_ts_lsp = "tsgo"
-vim.diagnostic.config({
-  virtual_text = false,
-})
+vim.g.lazyvim_mini_snippets_in_completion = false
+vim.g.lazyvim_prettier_needs_config = true
+vim.opt.laststatus = 3
+vim.opt.cmdheight = 0
 
 vim.opt.diffopt = {
   "internal",

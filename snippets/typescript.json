@@ -1,0 +1,11 @@
+{
+  "Export function": {
+    "prefix": "efunc",
+    "body": [
+      "export function ${1}() {",
+      "\t$0",
+      "}"
+    ],
+    "description": "Cria uma função exportada"
+  }
+}
