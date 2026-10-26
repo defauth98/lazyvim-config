@@ -1,0 +1,12 @@
+return {
+  {
+    "akinsho/bufferline.nvim",
+    opts = {
+      options = {
+        truncate_names = false,
+        enforce_regular_tabs = false,
+        max_prefix_length = math.huge,
+      },
+    },
+  },
+}

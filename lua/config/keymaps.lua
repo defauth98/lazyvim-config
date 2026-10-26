@@ -7,6 +7,23 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set("n", "<C-p>", LazyVim.pick("files"))
 vim.keymap.set("n", "<C-f>", LazyVim.pick("live_grep"))
 
+-- Toggle inline diagnostics while keeping signs and underlines.
+local inline_diagnostics
+Snacks.toggle({
+  name = "Inline Diagnostics",
+  get = function()
+    return vim.diagnostic.config().virtual_text ~= false
+  end,
+  set = function(enabled)
+    if enabled then
+      vim.diagnostic.config({ virtual_text = inline_diagnostics or true })
+    else
+      inline_diagnostics = vim.diagnostic.config().virtual_text
+      vim.diagnostic.config({ virtual_text = false })
+    end
+  end,
+}):map("<leader>uv")
+
 -- Toggle comment with CTRL+/
 vim.keymap.set("n", "<C-/>", "gcc", { remap = true, desc = "Toggle comment" })
 vim.keymap.set("v", "<C-/>", "gc", { remap = true, desc = "Toggle comment" })
