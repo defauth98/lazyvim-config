@@ -4,8 +4,29 @@ vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
+-- Botões laterais do mouse: retroceder/avançar no histórico de saltos.
+vim.keymap.set("n", "<X1Mouse>", "<C-o>", { desc = "Voltar no código" })
+vim.keymap.set("n", "<X2Mouse>", "<C-i>", { desc = "Avançar no código" })
+
 vim.keymap.set("n", "<C-p>", LazyVim.pick("files"))
 vim.keymap.set("n", "<C-f>", LazyVim.pick("live_grep"))
+
+-- Toggle inline diagnostics while keeping signs and underlines.
+local inline_diagnostics
+Snacks.toggle({
+  name = "Inline Diagnostics",
+  get = function()
+    return vim.diagnostic.config().virtual_text ~= false
+  end,
+  set = function(enabled)
+    if enabled then
+      vim.diagnostic.config({ virtual_text = inline_diagnostics or true })
+    else
+      inline_diagnostics = vim.diagnostic.config().virtual_text
+      vim.diagnostic.config({ virtual_text = false })
+    end
+  end,
+}):map("<leader>uv")
 
 -- Toggle comment with CTRL+/
 vim.keymap.set("n", "<C-/>", "gcc", { remap = true, desc = "Toggle comment" })

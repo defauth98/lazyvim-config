@@ -18,6 +18,18 @@ return {
       -- the default high-contrast cyan/red block palette.
       local transparent = "NONE"
 
+      -- Markdown: preserve text colors/styles without shaded backgrounds.
+      local markdown_groups = { "@markup.raw.markdown_inline", "RenderMarkdownCode" }
+      for i = 1, 6 do
+        markdown_groups[#markdown_groups + 1] = "@markup.heading." .. i .. ".markdown"
+        markdown_groups[#markdown_groups + 1] = "RenderMarkdownH" .. i .. "Bg"
+      end
+      for _, group in ipairs(markdown_groups) do
+        if type(hl[group]) == "table" then
+          hl[group].bg = transparent
+        end
+      end
+
       hl.NeogitNormal = { fg = c.fg, bg = transparent }
       hl.NeogitSubtleText = { fg = c.comment, bg = transparent }
       hl.NeogitCommitViewHeader = { fg = c.blue, bg = transparent, bold = true }
