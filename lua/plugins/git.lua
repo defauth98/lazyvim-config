@@ -7,7 +7,7 @@ return {
       },
     },
     keys = {
-      { "<leader>gd", false },
+      { "<leader>gd", "<cmd>GitDiff<cr>", desc = "Git Diff" },
       { "<leader>gD", false },
     },
   },
@@ -21,6 +21,12 @@ return {
         for _, key in ipairs({ "<leader>ghd", "<leader>ghD" }) do
           pcall(vim.keymap.del, "n", key, { buffer = buffer })
         end
+        vim.keymap.set("n", "<leader>hh", function()
+          require("gitsigns").nav_hunk("next")
+        end, { buffer = buffer, desc = "Próximo hunk" })
+        vim.keymap.set("n", "<leader>hp", function()
+          require("gitsigns").nav_hunk("prev")
+        end, { buffer = buffer, desc = "Hunk anterior" })
         return result
       end
     end,

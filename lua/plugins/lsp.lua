@@ -12,6 +12,14 @@ return {
             },
           },
         },
+        cssls = {
+          capabilities = {
+            textDocument = {
+              -- O servidor CSS exige esta capacidade para fornecer completions.
+              completion = { completionItem = { snippetSupport = true } },
+            },
+          },
+        },
         eslint = {
           settings = {
             validate = "on",
@@ -38,7 +46,10 @@ return {
         vtsls = {
           settings = {
             complete_function_calls = false,
-            typescript = { suggest = { completeFunctionCalls = false } },
+            typescript = {
+              suggest = { completeFunctionCalls = false },
+              tsserver = { experimental = { enableProjectDiagnostics = true } },
+            },
             javascript = { suggest = { completeFunctionCalls = false } },
           },
         },

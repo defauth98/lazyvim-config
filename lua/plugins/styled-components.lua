@@ -10,8 +10,14 @@ return {
     opts = {
       servers = {
         vtsls = {
+          capabilities = {
+            textDocument = {
+              completion = { completionItem = { snippetSupport = true } },
+            },
+          },
           settings = {
             vtsls = {
+              autoUseWorkspaceTsdk = true,
               tsserver = {
                 globalPlugins = {
                   {

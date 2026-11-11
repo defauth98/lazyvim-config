@@ -42,6 +42,7 @@ vim.keymap.set("i", "<C-_>", "<Esc>gcc", { remap = true, desc = "Toggle comment"
 local tools = require("insideee-dev.utils")
 vim.keymap.set("n", "<leader>yr", function() tools.copy_to_clipboard(false) end, { desc = "Copy relative path" })
 vim.keymap.set("n", "<leader>yR", function() tools.copy_to_clipboard(true) end, { desc = "Copy path with line" })
+vim.keymap.set("n", "<leader>yf", function() tools.copy_to_clipboard(true) end, { desc = "Copiar arquivo e linha" })
 vim.keymap.set("n", "<leader>r", tools.replace_hex_with_HSL, { desc = "Convert hex to HSL on line" })
 for index = 1, 6 do
   vim.keymap.set("n", "<leader>" .. index, function()
@@ -52,6 +53,7 @@ end
 
 -- Recursos Git e buffers já fornecidos pelo Snacks/LazyVim.
 vim.keymap.set("n", "<leader>go", function() Snacks.gitbrowse() end, { desc = "Open Git remote" })
+vim.keymap.set("n", "<leader>gF", "<cmd>!git fetch origin<cr>", { desc = "Git Fetch origin" })
 vim.keymap.set("n", "<leader>th", function()
   Snacks.bufdelete({ filter = function(buf) return vim.fn.bufwinid(buf) == -1 end })
 end, { desc = "Close hidden buffers" })
