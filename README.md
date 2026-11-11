@@ -36,6 +36,8 @@ Configuração pessoal do Neovim baseada no [LazyVim](https://www.lazyvim.org/).
 
 ### Edição
 
+- `Espaço y f` copia o caminho do arquivo relativo ao diretório atual e a linha para o clipboard, por exemplo: `src/app.ts:42`.
+
 | Tecla       | Modo                 | Ação                                          |
 | ----------- | -------------------- | --------------------------------------------- |
 | `<leader>p` | Visual               | Colar sem sobrescrever o registro             |
@@ -136,6 +138,24 @@ Configuração pessoal do Neovim baseada no [LazyVim](https://www.lazyvim.org/).
 
 ## 🔌 Plugins Adicionais
 
+### [`obsidian.nvim`](https://github.com/obsidian-nvim/obsidian.nvim) — Notas do Obsidian
+
+- Configuração em `lua/plugins/obsidian.lua`, usando o vault `~/obsidian/obsidian-vault-pessoal`.
+- Carrega ao abrir Markdown, executar `:Obsidian` ou usar um dos atalhos abaixo.
+- Busca pelo Snacks; autocomplete de links `[[` e tags `#` pelo LSP integrado ao blink.cmp.
+- Em vaults identificados pela pasta `.obsidian`, o Marksman não inicia; os links ficam a cargo do `obsidian-ls`, evitando diagnósticos incompatíveis com o Obsidian. Markdown fora dos vaults continua usando Marksman.
+- Notas diárias em `TODOLIST`, templates em `Templates` e imagens coladas em `anexos`, seguindo o aplicativo.
+- Novas notas usam nomes derivados do título; propriedades não são acrescentadas automaticamente ao frontmatter.
+- `Espaço n f`: buscar nota pelo nome.
+- `Espaço n s`: buscar texto nas notas.
+- `Espaço n n`: criar nota.
+- `Espaço n d`: abrir ou criar a nota de hoje.
+- `Espaço n b`: ver backlinks; `Espaço n l`: listar links; `Espaço n t`: buscar tags.
+- `Espaço n i`: inserir template; `Espaço n x`: alternar checkbox.
+- `Espaço n o`: abrir a nota no aplicativo Obsidian.
+- Dentro das notas: `Enter` segue links ou alterna checkboxes; `]o` / `[o` navegam entre links. `<C-a>` / `<C-x>` continuam disponíveis para o OpenCode.
+- `:Obsidian` abre o menu de comandos; `:checkhealth obsidian` verifica a integração.
+
 ### [`blink.cmp`](https://github.com/saghen/blink.cmp) — Autocompletar
 
 - Fontes: `lsp`, `path`, `snippets` (buffers removidos)
@@ -144,7 +164,16 @@ Configuração pessoal do Neovim baseada no [LazyVim](https://www.lazyvim.org/).
 - Assinatura de função (signature help) **desativada**
 - Keymaps de navegação: `<C-j>` / `<C-k>` para navegar, `<CR>` para aceitar
 
-### [`diffview.nvim`](https://github.com/sindrets/diffview.nvim) — Visualizador de diffs Git
+### [`codediff.nvim`](https://github.com/esmuellert/codediff.nvim) — Diff Git estilo VS Code
+
+- `<leader>gd` (`Espaço g d`) ou `:GitDiff` abre a visualização, sem acesso fixo na barra de abas.
+- Reutiliza a aba de diff de cada repositório, com árvore de arquivos e diff lado a lado.
+- Compacta pastas com um único subdiretório em uma linha, como `apps/back/src/app`.
+- Scroll vertical e horizontal sincronizado entre os dois lados do diff.
+- Atualiza as alterações automaticamente e mostra arquivos staged, unstaged e novos.
+- `q` fecha a visualização; use `:GitDiff` para reabrir.
+- `:CodeDiff` também está disponível para comparações avulsas. `diffview.nvim` permanece desativado.
+- `<leader>gF` (`Espaço g F`, com `F` maiúsculo) executa `git fetch origin` no diretório atual.
 
 ### [`vim-flog`](https://github.com/rbong/vim-flog) — Log visual do Git
 
