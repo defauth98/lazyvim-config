@@ -13,7 +13,6 @@ Configuração pessoal do Neovim baseada no [LazyVim](https://www.lazyvim.org/).
 | `editor.neo-tree`       | Explorador de arquivos Neo-tree               |
 | `lang.typescript`       | Suporte completo a TypeScript/JavaScript      |
 | `lang.typescript.biome` | Formatter/linter Biome para TS                |
-| `lang.typescript.tsgo`  | LSP tsgo (TypeScript Go) como servidor padrão |
 | `util.gh`               | Integração com GitHub CLI                     |
 | `util.mini-hipatterns`  | Destaque de padrões no código (ex: cores hex) |
 | `linting.eslint`        | Linting com ESLint                            |
@@ -126,13 +125,15 @@ Configuração pessoal do Neovim baseada no [LazyVim](https://www.lazyvim.org/).
 | `undofile`       | `true`   | Histórico de undo persistente               |
 | `autoread`       | `true`   | Recarrega arquivos modificados externamente |
 | `virtual_text`   | `false`  | Diagnósticos sem texto no fim da linha      |
-| `lazyvim_ts_lsp` | `"tsgo"` | Usa tsgo como LSP padrão para TypeScript    |
+| `lazyvim_ts_lsp` | `"vtsls"` | Usa vtsls como LSP padrão para TypeScript  |
 
 ### Plugins desativados
 
 - `nvim-notify` — notificações padrão desativadas
-- `folke/noice.nvim` — UI de mensagens desativada
 - `folke/flash.nvim` — navegação por flash desativada
+
+O Noice exibe o progresso dos servidores de linguagem somente após 10 segundos de execução. Operações rápidas e suas
+mensagens de conclusão ficam ocultas; erros, avisos e diagnósticos continuam visíveis (`lua/plugins/noice.lua`).
 
 ---
 
@@ -182,6 +183,9 @@ Configuração pessoal do Neovim baseada no [LazyVim](https://www.lazyvim.org/).
 
 ### [`neo-tree.nvim`](https://github.com/nvim-neo-tree/neo-tree.nvim) — Explorador de arquivos
 
+- `Espaço e` / `Espaço f e`: abre a raiz do projeto reconhecido pelo Git; fora de um repositório válido, usa o diretório atual.
+- `Espaço E` / `Espaço f E`: abre sempre o diretório atual.
+- Uma pasta `.git` vazia ou inválida não faz o explorador subir para uma raiz incorreta.
 - Segue o arquivo atual automaticamente
 - Mostra dotfiles e arquivos gitignored
 - Oculta: `.git`, `node_modules`, `dist`
@@ -217,8 +221,23 @@ Configuração pessoal do Neovim baseada no [LazyVim](https://www.lazyvim.org/).
 
 ## 🛠️ LSP — Configurações Personalizadas
 
-### TypeScript (`tsgo`)
+### Desempenho em projetos JS/TS
 
+- O vtsls verifica os arquivos abertos; o diagnóstico experimental de arquivos fechados fica desativado.
+- O autocomplete TypeScript retorna até 200 sugestões por resposta, filtradas por relevância no servidor.
+  Digite mais caracteres para refinar os resultados.
+- O Tailwind LSP inicia quando encontra configuração Tailwind ou uma dependência `tailwindcss` no pacote ou workspace.
+  Projetos Tailwind v4 também são reconhecidos pela dependência, sem exigir `tailwind.config.*`.
+- O plugin TypeScript de styled-components carrega apenas em workspaces ou pacotes que declaram `styled-components`.
+- O ESLint continua fornecendo diagnósticos dos arquivos abertos. Use `:EslintProject` para atualizar os diagnósticos
+  do projeto inteiro manualmente; abrir e salvar arquivos não executa mais `eslint .`.
+- O backend Kolab e suas worktrees usam Biome, sem iniciar ESLint.
+
+### TypeScript (`vtsls`)
+
+- Heap do tsserver limitado a 8192 MiB (8 GiB), em vez do padrão de 3072 MiB, para projetos grandes.
+  Esse valor é um teto por processo, não uma reserva imediata de RAM; o consumo total pode ser maior que o heap.
+  Após alterar esse limite, reinicie o Neovim para aplicá-lo.
 - Todos os **inlay hints desativados** (tipos de retorno, parâmetros, variáveis, etc.)
 - Suporte a: `js`, `jsx`, `ts`, `tsx`
 

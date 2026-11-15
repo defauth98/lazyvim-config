@@ -66,15 +66,8 @@ function M.refresh(bufnr)
   if not root then
     return
   end
-  projects[root] = projects[root] or { generation = 0 }
-  local state = projects[root]
-  state.generation = state.generation + 1
-  local generation = state.generation
-  vim.defer_fn(function()
-    if state.generation == generation then
-      scan(root)
-    end
-  end, 700)
+  projects[root] = projects[root] or {}
+  scan(root)
 end
 
 function M.setup()
@@ -85,19 +78,12 @@ function M.setup()
       local client = vim.lsp.get_client_by_id(event.data.client_id)
       if client and client.name == "eslint" then
         vim.diagnostic.reset(namespace, event.buf)
-        M.refresh(event.buf)
       end
-    end,
-  })
-  vim.api.nvim_create_autocmd("BufWritePost", {
-    group = group,
-    callback = function(event)
-      M.refresh(event.buf)
     end,
   })
   vim.api.nvim_create_user_command("EslintProject", function()
     M.refresh(0)
-  end, { desc = "Atualizar diagnósticos ESLint do projeto" })
+  end, { desc = "Executar ESLint manualmente no projeto inteiro" })
 end
 
 return M

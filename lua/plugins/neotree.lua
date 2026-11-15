@@ -1,6 +1,23 @@
 return {
   "nvim-neo-tree/neo-tree.nvim",
   cmd = "Neotree",
+  keys = {
+    {
+      "<leader>fe",
+      function()
+        local root = LazyVim.root()
+        -- A .git marker can be empty or invalid; only trust roots recognized by Git.
+        local result = vim.system({ "git", "-C", root, "rev-parse", "--show-toplevel" }, { text = true }):wait(1000)
+        require("neo-tree.command").execute({
+          source = "filesystem",
+          toggle = true,
+          dir = result.code == 0 and root or vim.fn.getcwd(),
+        })
+      end,
+      desc = "Explorer NeoTree (Project or cwd)",
+    },
+    { "<leader>e", "<leader>fe", desc = "Explorer NeoTree (Project or cwd)", remap = true },
+  },
   opts = function(_, opts)
     opts.filesystem = opts.filesystem or {}
     opts.filesystem.group_empty_dirs = false

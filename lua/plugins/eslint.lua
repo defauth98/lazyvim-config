@@ -4,13 +4,27 @@ return {
     opts = function(_, opts)
       local default_root_dir = vim.lsp.config.eslint.root_dir
       local kolab_root = vim.fn.expand("~/kolab/kolab-back-end")
+      local kolab_git_dir = vim.uv.fs_realpath(kolab_root .. "/.git")
+      local kolab_roots = { [kolab_root] = true }
 
       opts.servers.eslint.settings.format = false
 
       opts.servers.eslint.root_dir = function(bufnr, on_dir)
         -- This repository migrated to Biome but still contains orphaned ESLint configs.
-        if vim.fs.root(bufnr, { "biome.json", "biome.jsonc" }) == kolab_root then
-          return
+        local biome_root = vim.fs.root(bufnr, { "biome.json", "biome.jsonc" })
+        if biome_root then
+          if kolab_roots[biome_root] == nil then
+            -- Linked worktrees share a Git directory, regardless of their location or name.
+            local result = vim
+              .system({ "git", "-C", biome_root, "rev-parse", "--path-format=absolute", "--git-common-dir" }, {
+                text = true,
+              })
+              :wait(1000)
+            kolab_roots[biome_root] = result.code == 0 and vim.trim(result.stdout) == kolab_git_dir
+          end
+          if kolab_roots[biome_root] then
+            return
+          end
         end
         default_root_dir(bufnr, on_dir)
       end

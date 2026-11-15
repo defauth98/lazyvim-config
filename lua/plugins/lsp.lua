@@ -46,11 +46,24 @@ return {
         vtsls = {
           settings = {
             complete_function_calls = false,
+            vtsls = {
+              experimental = {
+                completion = { enableServerSideFuzzyMatch = true, entriesLimit = 200 },
+              },
+            },
             typescript = {
               suggest = { completeFunctionCalls = false },
-              tsserver = { experimental = { enableProjectDiagnostics = true } },
+              -- Project-wide diagnostics repeatedly scan large monorepos, including closed files.
+              tsserver = {
+                -- Large projects can exhaust the default 3 GiB heap and abort Node.
+                maxTsServerMemory = 8192,
+                experimental = { enableProjectDiagnostics = false },
+              },
             },
-            javascript = { suggest = { completeFunctionCalls = false } },
+            javascript = {
+              suggest = { completeFunctionCalls = false },
+              tsserver = { experimental = { enableProjectDiagnostics = false } },
+            },
           },
         },
       },
