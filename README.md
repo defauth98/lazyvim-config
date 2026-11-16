@@ -179,7 +179,9 @@ mensagens de conclusão ficam ocultas; erros, avisos e diagnósticos continuam v
 
 - `<leader>gd` ou `:GitDiff` abre a visualização, reutilizando a aba de diff de cada repositório.
 - Árvore de arquivos com pastas compactadas, diff lado a lado e scroll sincronizado nos dois eixos.
-- Quebra visual de linhas (`wrap`) ativa por padrão no editor e mantida nos painéis do CodeDiff.
+- Os painéis usam `nowrap`, como o plugin define: o wrap desalinha as linhas de preenchimento entre os dois lados
+  ([issue #50](https://github.com/esmuellert/codediff.nvim/issues/50)). A quebra de linhas segue ativa no restante do
+  editor.
 - Atualiza automaticamente e mostra arquivos staged, unstaged e novos.
 - `]c` / `[c` ou `<leader>hh` / `<leader>hp` navegam entre hunks no diff. Nos buffers normais, `<leader>hh` /
   `<leader>hp` fazem o mesmo via GitSigns.
