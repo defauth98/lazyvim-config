@@ -53,7 +53,7 @@ sozinho.
 - `]n` / `[n`: navegar nós Tree-sitter (mini.bracketed).
 
 Observação: `<Tab>` e `<C-i>` são a mesma tecla na maioria dos terminais, então `<C-i>` (avançar no histórico de
-saltos) fica indisponível. O mouse está desativado (`mouse = ""`).
+saltos) fica indisponível. O mouse está ativado em todos os modos (`mouse = "a"`).
 
 ### Edição
 
@@ -133,7 +133,7 @@ Durante o review (atalhos padrão do Octo, com localleader `\`):
 
 ## 🔧 Opções Gerais (`options.lua`)
 
-- `mouse = ""`: mouse desativado.
+- `mouse = "a"`: mouse ativado em todos os modos.
 - `swapfile = false`: sem arquivos de swap.
 - `laststatus = 3` e `cmdheight = 0`: statusline global e linha de comando oculta (o Noice exibe os comandos).
 - `diffopt` com algoritmo histogram e `linematch:60`.
@@ -178,7 +178,10 @@ mensagens de conclusão ficam ocultas; erros, avisos e diagnósticos continuam v
 ### [`codediff.nvim`](https://github.com/esmuellert/codediff.nvim) — Diff Git estilo VS Code
 
 - `<leader>gd` ou `:GitDiff` abre a visualização, reutilizando a aba de diff de cada repositório.
-- Árvore de arquivos com pastas compactadas, diff lado a lado e scroll sincronizado nos dois eixos.
+- Lista plana dos arquivos com alterações. Texto e Markdown (`.txt`, `.text`, `.md`, `.markdown`, `.mdx`)
+  usam diff inline; os demais arquivos usam lado a lado com scroll sincronizado nos dois eixos.
+- O layout acompanha o arquivo selecionado. `t` alterna manualmente até a próxima troca de arquivo;
+  conflitos mantêm a visualização do plugin.
 - Os painéis usam `nowrap`, como o plugin define: o wrap desalinha as linhas de preenchimento entre os dois lados
   ([issue #50](https://github.com/esmuellert/codediff.nvim/issues/50)). A quebra de linhas segue ativa no restante do
   editor.

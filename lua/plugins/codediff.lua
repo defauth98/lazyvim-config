@@ -6,6 +6,7 @@ return {
     -- O CodeDiff ativa scrollbind nos dois painéis; sincronize ambos os eixos.
     vim.opt.scrollopt:append({ "ver", "hor", "jump" })
     require("insideee-dev.git-diff").setup()
+    require("insideee-dev.codediff-layout").setup()
   end,
   opts = {
     diff = { layout = "side-by-side" },
@@ -16,8 +17,7 @@ return {
       },
     },
     explorer = {
-      view_mode = "tree",
-      flatten_dirs = true,
+      view_mode = "list",
       auto_refresh = true,
     },
   },
