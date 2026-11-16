@@ -40,6 +40,11 @@ return {
       pattern = "wrap",
       callback = enable_diff_wrap,
     })
+    -- OptionSet não dispara dentro dos autocmds em que o plugin reaplica nowrap.
+    vim.api.nvim_create_autocmd({ "BufWinEnter", "BufEnter", "WinEnter", "FileType", "TabEnter" }, {
+      group = group,
+      callback = enable_diff_wrap,
+    })
   end,
   opts = {
     diff = { layout = "side-by-side" },
