@@ -26,7 +26,9 @@ Leader é Espaço; localleader é `\`.
 
 - `<C-d>` / `<C-u>`: rolar meia página e centralizar o cursor.
 - `n` / `N`: próximo/anterior resultado de busca, centralizado.
-- `<C-p>`: buscar arquivos (picker).
+- `<leader><space>`: buscar arquivos e abrir o escolhido numa nova aba (se já estiver aberto em outra aba, ela é
+  focada).
+- `<C-p>` ou `<leader>ff`: buscar arquivos e abrir na aba/janela atual.
 - `<C-f>`: buscar texto no projeto (live grep).
 - `<leader>j`: Flash (pular para qualquer posição visível). O `s` do Flash fica livre para os atalhos de janela.
 - `te`: nova aba já com o Neo-tree aberto na raiz do projeto do arquivo atual (ou no cwd fora de Git); `<Tab>` /
