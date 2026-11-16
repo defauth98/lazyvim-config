@@ -3,10 +3,14 @@ return {
     "akinsho/bufferline.nvim",
     opts = function(_, opts)
       opts.options = opts.options or {}
-      opts.options.mode = "buffers"
+      opts.options.mode = "tabs"
       opts.options.always_show_bufferline = true
       opts.options.show_buffer_close_icons = false
       opts.options.show_close_icon = false
+      -- In tabs mode, name each tab after its file window, never after Neo-tree or other side panels.
+      opts.options.custom_filter = function(buf)
+        return vim.bo[buf].buftype == ""
+      end
       -- Disambiguate index/styles files by showing their parent directory.
       opts.options.name_formatter = function(buffer)
         local stem = vim.fn.fnamemodify(buffer.name, ":r")

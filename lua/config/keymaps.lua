@@ -6,7 +6,7 @@ vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Colar sem sobrescrever o re
 
 vim.keymap.set("n", "te", "<cmd>tabnew<cr>", { desc = "Nova aba" })
 vim.keymap.set("n", "<Tab>", "gt", { desc = "Próxima aba" })
-vim.keymap.set("n", "<S-Tab>", "gT", { desc = "Aba anterior" })
+vim.keymap.set("n", "<C-Tab>", "gT", { desc = "Aba anterior" })
 vim.keymap.set("n", "ss", "<cmd>split<cr>", { desc = "Dividir horizontalmente" })
 vim.keymap.set("n", "sv", "<cmd>vsplit<cr>", { desc = "Dividir verticalmente" })
 vim.keymap.set("n", "sh", "<C-w>h", { desc = "Janela à esquerda" })

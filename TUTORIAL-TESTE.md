@@ -40,7 +40,8 @@ original ("LazyVim Part 3") está em `/home/defauth/.local/state/nvim-config-bac
 ## Interface
 
 - Markdown: números de linha contínuos e cercas de código visíveis (`conceallevel = 0`).
-- Com uma única janela não há winbar; ao dividir (`sv`), cada janela mostra o nome do arquivo à direita.
+- Com um único arquivo não há winbar; ao dividir (`sv`), cada janela de arquivo mostra o nome à direita.
+- Com o foco no Neo-tree, a aba no topo continua mostrando o arquivo, não "neo-tree filesystem".
 - Statusline e winbar transparentes; o mini.hipatterns realça cores hex e classes Tailwind.
 
 ## Restaurar o experimento original

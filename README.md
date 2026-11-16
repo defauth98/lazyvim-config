@@ -29,7 +29,7 @@ Leader é Espaço; localleader é `\`.
 - `<C-p>`: buscar arquivos (picker).
 - `<C-f>`: buscar texto no projeto (live grep).
 - `<leader>j`: Flash (pular para qualquer posição visível). O `s` do Flash fica livre para os atalhos de janela.
-- `te`: nova aba; `<Tab>` / `<S-Tab>`: próxima/anterior aba.
+- `te`: nova aba; `<Tab>` / `<C-Tab>`: próxima/anterior aba.
 - `ss` / `sv`: dividir horizontal/verticalmente; `sh`, `sj`, `sk`, `sl`: mover entre janelas.
 - `<leader>1` a `<leader>6`: ir para o buffer listado correspondente.
 - `]n` / `[n`: navegar nós Tree-sitter (mini.bracketed).
@@ -97,9 +97,11 @@ Durante o review (atalhos padrão do Octo, com localleader `\`):
 
 - Tema TokyoNight `night` com fundo transparente, inclusive sidebars e floats.
 - Statusline global (lualine) transparente, com modo, branch, caminho, gravação de macro, diagnósticos e diff.
-- O nome do arquivo aparece no winbar de cada janela apenas quando há mais de um arquivo dividido na aba; com uma única
-  janela, o bufferline já identifica o arquivo.
-- Bufferline em modo buffers, sempre visível, sem ícones de fechar; arquivos `index` e `styles` mostram a pasta pai.
+- Barra superior (bufferline) em modo abas, sempre visível, sem ícones de fechar. Cada aba leva o nome do arquivo da
+  janela focada; o Neo-tree e outros painéis laterais nunca dão nome à aba. Arquivos `index` e `styles` mostram a
+  pasta pai.
+- O nome do arquivo aparece no winbar de cada janela apenas quando há mais de um arquivo dividido na aba; com um único
+  arquivo, a barra superior já o identifica. O Neo-tree e outros painéis não têm winbar.
 - Diagnósticos sem virtual text por padrão (use `<leader>uv` para ativar).
 - Markdown abre com `conceallevel = 0`, para não esconder cercas de código e links (o que quebrava a numeração e a
   quebra de linhas). Notas do vault Obsidian voltam a usar `conceallevel = 2`.

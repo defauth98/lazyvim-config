@@ -40,12 +40,19 @@ return {
       return register ~= "" and ("REC @" .. register) or ""
     end
 
-    -- The bufferline already names the file; the winbar only helps tell splits apart.
-    local function has_file_splits()
+    local function is_file_window(win)
+      local buf = vim.api.nvim_win_get_buf(win)
+      return vim.api.nvim_win_get_config(win).relative == "" and vim.bo[buf].buftype == "" and vim.bo[buf].buflisted
+    end
+
+    -- The tabline already names the focused file; the winbar only helps tell file splits apart.
+    local function show_window_file()
+      if not is_file_window(0) then
+        return false
+      end
       local count = 0
       for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-        local buf = vim.api.nvim_win_get_buf(win)
-        if vim.api.nvim_win_get_config(win).relative == "" and vim.bo[buf].buftype == "" then
+        if is_file_window(win) then
           count = count + 1
         end
       end
@@ -111,10 +118,10 @@ return {
     }
     -- Colors come from the transparent theme above instead of fixed Tokyo Night values.
     opts.winbar = {
-      lualine_x = { { window_file, cond = has_file_splits, padding = { left = 1, right = 1 } } },
+      lualine_x = { { window_file, cond = show_window_file, padding = { left = 1, right = 1 } } },
     }
     opts.inactive_winbar = {
-      lualine_x = { { window_file, cond = has_file_splits, padding = { left = 1, right = 1 } } },
+      lualine_x = { { window_file, cond = show_window_file, padding = { left = 1, right = 1 } } },
     }
   end,
 }
