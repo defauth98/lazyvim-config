@@ -101,7 +101,7 @@ Durante o review (atalhos padrão do Octo, com localleader `\`):
   janela focada; o Neo-tree e outros painéis laterais nunca dão nome à aba. Arquivos `index` e `styles` mostram a
   pasta pai.
 - O nome do arquivo aparece no winbar de cada janela apenas quando há mais de um arquivo dividido na aba; com um único
-  arquivo, a barra superior já o identifica. O Neo-tree e outros painéis não têm winbar.
+  arquivo, a barra superior já o identifica. O Neo-tree e outros painéis não têm winbar. O winbar também é transparente (`WinBar`/`WinBarNC` sem fundo).
 - Diagnósticos sem virtual text por padrão (use `<leader>uv` para ativar).
 - Markdown abre com `conceallevel = 0`, para não esconder cercas de código e links (o que quebrava a numeração e a
   quebra de linhas). Notas do vault Obsidian voltam a usar `conceallevel = 2`.

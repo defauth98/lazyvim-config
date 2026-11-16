@@ -32,6 +32,10 @@ return {
           end
         end
 
+        -- Window filename bars (lualine winbar in splits) without the darker strip.
+        hl.WinBar = { fg = c.fg_dark, bg = transparent }
+        hl.WinBarNC = { fg = c.fg_gutter, bg = transparent }
+
         hl.NeogitNormal = { fg = c.fg, bg = transparent }
         hl.NeogitSubtleText = { fg = c.comment, bg = transparent }
         hl.NeogitCommitViewHeader = { fg = c.blue, bg = transparent, bold = true }
