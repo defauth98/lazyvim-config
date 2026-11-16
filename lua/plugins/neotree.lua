@@ -1,20 +1,46 @@
 -- Open Neo-tree at the Git project root, or at the cwd when the root is not a valid repository.
-local function open_explorer(root, toggle)
+local function open_explorer(root, toggle, extra)
   -- A .git marker can be empty or invalid; only trust roots recognized by Git.
   local in_git_repo = require("insideee-dev.utils").git_toplevel(root, 1000) ~= nil
-  require("neo-tree.command").execute({
-    source = "filesystem",
-    toggle = toggle,
-    dir = in_git_repo and root or vim.fn.getcwd(),
-  }, not in_git_repo and {
-    enable_git_status = false,
-    filtered_items = { hide_gitignored = false },
-  } or nil)
+  require("neo-tree.command").execute(
+    vim.tbl_extend("force", {
+      source = "filesystem",
+      toggle = toggle,
+      dir = in_git_repo and root or vim.fn.getcwd(),
+    }, extra or {}),
+    not in_git_repo
+        and {
+          enable_git_status = false,
+          filtered_items = { hide_gitignored = false },
+        }
+      or nil
+  )
 end
 
 return {
   "nvim-neo-tree/neo-tree.nvim",
   cmd = "Neotree",
+  init = function()
+    -- Tabs opened with a file (e.g. <leader><space>, :tabedit) start with Neo-tree shown, keeping focus on the file.
+    vim.api.nvim_create_autocmd("TabNewEntered", {
+      group = vim.api.nvim_create_augroup("neotree_on_new_tab", { clear = true }),
+      callback = function()
+        vim.schedule(function()
+          local buf = vim.api.nvim_get_current_buf()
+          local file = vim.api.nvim_buf_get_name(buf)
+          if vim.bo[buf].buftype ~= "" or file == "" or vim.fn.filereadable(file) == 0 then
+            return
+          end
+          for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+            if vim.bo[vim.api.nvim_win_get_buf(win)].filetype == "neo-tree" then
+              return
+            end
+          end
+          open_explorer(LazyVim.root({ buf = buf }), false, { action = "show", reveal_file = file })
+        end)
+      end,
+    })
+  end,
   keys = {
     {
       "<leader>fe",

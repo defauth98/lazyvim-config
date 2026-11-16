@@ -27,7 +27,8 @@ Leader é Espaço; localleader é `\`.
 - `<C-d>` / `<C-u>`: rolar meia página e centralizar o cursor.
 - `n` / `N`: próximo/anterior resultado de busca, centralizado.
 - `<leader><space>`: buscar arquivos e abrir o escolhido numa nova aba (se já estiver aberto em outra aba, ela é
-  focada).
+  focada). Toda aba nova aberta com um arquivo (este atalho, `:tabedit` etc.) já mostra o Neo-tree com o arquivo
+  revelado, mantendo o foco no arquivo.
 - `<C-p>`: buscar arquivos e abrir na aba/janela atual.
 
 ### Pickers com `;`
