@@ -17,30 +17,30 @@ local function open_explorer(root, toggle, extra)
   )
 end
 
+-- Defined outside `init` so LazyVim's init (open Neo-tree for `nvim <dir>`) is not overridden.
+-- Tabs opened with a file (e.g. <leader><space>, :tabedit) start with Neo-tree shown, keeping focus on the file.
+vim.api.nvim_create_autocmd("TabNewEntered", {
+  group = vim.api.nvim_create_augroup("neotree_on_new_tab", { clear = true }),
+  callback = function()
+    vim.schedule(function()
+      local buf = vim.api.nvim_get_current_buf()
+      local file = vim.api.nvim_buf_get_name(buf)
+      if vim.bo[buf].buftype ~= "" or file == "" or vim.fn.filereadable(file) == 0 then
+        return
+      end
+      for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+        if vim.bo[vim.api.nvim_win_get_buf(win)].filetype == "neo-tree" then
+          return
+        end
+      end
+      open_explorer(LazyVim.root({ buf = buf }), false, { action = "show", reveal_file = file })
+    end)
+  end,
+})
+
 return {
   "nvim-neo-tree/neo-tree.nvim",
   cmd = "Neotree",
-  init = function()
-    -- Tabs opened with a file (e.g. <leader><space>, :tabedit) start with Neo-tree shown, keeping focus on the file.
-    vim.api.nvim_create_autocmd("TabNewEntered", {
-      group = vim.api.nvim_create_augroup("neotree_on_new_tab", { clear = true }),
-      callback = function()
-        vim.schedule(function()
-          local buf = vim.api.nvim_get_current_buf()
-          local file = vim.api.nvim_buf_get_name(buf)
-          if vim.bo[buf].buftype ~= "" or file == "" or vim.fn.filereadable(file) == 0 then
-            return
-          end
-          for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-            if vim.bo[vim.api.nvim_win_get_buf(win)].filetype == "neo-tree" then
-              return
-            end
-          end
-          open_explorer(LazyVim.root({ buf = buf }), false, { action = "show", reveal_file = file })
-        end)
-      end,
-    })
-  end,
   keys = {
     {
       "<leader>fe",
