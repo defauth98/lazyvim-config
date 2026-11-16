@@ -16,13 +16,15 @@ vim.keymap.set("n", "sl", "<C-w>l", { desc = "Janela à direita" })
 
 vim.keymap.set("n", "<C-p>", LazyVim.pick("files"), { desc = "Buscar arquivos" })
 -- <leader><space> opens the chosen file in a new tab (or focuses the tab already showing it);
--- <C-p> and <leader>ff keep opening it in the current window.
+-- <C-p> and ;f keep opening it in the current window. ;f replaces LazyVim's <leader>ff.
 vim.keymap.set(
   "n",
   "<leader><space>",
   LazyVim.pick("files", { confirm = "tabdrop" }),
   { desc = "Buscar arquivos (nova aba)" }
 )
+pcall(vim.keymap.del, "n", "<leader>ff")
+vim.keymap.set("n", ";f", LazyVim.pick("files"), { desc = "Buscar arquivos (aba atual)" })
 vim.keymap.set("n", "<C-f>", LazyVim.pick("live_grep"), { desc = "Buscar texto no projeto" })
 
 -- Toggle inline diagnostics while keeping signs and underlines.
