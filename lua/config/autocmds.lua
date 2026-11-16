@@ -32,6 +32,9 @@ vim.api.nvim_create_autocmd("CursorHold", {
       focusable = false,
       scope = "line",
       border = "rounded",
+      -- About 300px with the 15px JetBrains Mono used in the terminal (~9px per column).
+      max_width = 34,
+      wrap = true,
       prefix = function(_, index, total)
         return total > 1 and (index .. ". ") or "", "NormalFloat"
       end,
