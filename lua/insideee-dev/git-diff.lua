@@ -10,12 +10,11 @@ function M.open()
   if not root then
     local file = vim.api.nvim_buf_get_name(0)
     local cwd = vim.bo.buftype == "" and file ~= "" and vim.fs.dirname(file) or vim.fn.getcwd()
-    local result = vim.system({ "git", "-C", cwd, "rev-parse", "--show-toplevel" }, { text = true }):wait()
-    if result.code ~= 0 then
+    root = require("insideee-dev.utils").git_toplevel(cwd)
+    if not root then
       vim.notify("O arquivo ou diretório atual não pertence a um repositório Git.", vim.log.levels.WARN)
       return
     end
-    root = vim.trim(result.stdout)
   end
 
   for _, tab in ipairs(vim.api.nvim_list_tabpages()) do

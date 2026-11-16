@@ -1,47 +1,53 @@
-# Experimento LazyVim Part 3
+# Checklist de testes manuais
 
-Backup anterior a todas as mudanças: `/home/defauth/.local/state/nvim-config-backups/20261020-230332`.
+Use esta lista para conferir o comportamento depois de mudar a configuração. Leader é Espaço. O backup do experimento
+original ("LazyVim Part 3") está em `/home/defauth/.local/state/nvim-config-backups/20261020-230332`.
 
-Extras adicionados: `editor.inc-rename`, `editor.dial`, `editor.outline`, `ai.codeium`, `util.mini-hipatterns`.
-TypeScript/vtsls, Tailwind, Biome, ESLint, snippets e Prettier já estavam habilitados.
-O modo cowboy foi removido. Tema: Tokyo Night transparente (configuração original).
-Codeium precisa de autenticação pessoal com `:Codeium Auth`.
+## Inicialização
 
-## Testar
+- `nvim --headless '+qa'` termina sem erros.
+- `:Lazy` não mostra plugins com erro; `:LazyExtras` lista os extras de `lazyvim.json`.
+- `:checkhealth vim.lsp` não aponta servidores duplicados.
 
-Leader é Espaço.
+## Atalhos
 
-| Atalho | Ação |
-| --- | --- |
-| `<leader><space>` / `<leader>/` | Buscar arquivos / texto com Snacks Picker |
-| `<leader>,` | Listar buffers com Snacks Picker |
-| `<leader>cs` | Outline de símbolos |
-| `<leader>cr` | Renomear com prévia via LSP |
-| `Ctrl+a` / `Ctrl+x` | Incrementar/decrementar com Dial |
-| `]n` / `[n` | Navegar nós Tree-sitter |
-| `<leader>z` | Zen Mode |
-| `<leader>yr` / `<leader>yR` | Copiar caminho relativo / com linha |
-| `<leader>r` | Converter hex para HSL na linha |
-| `<leader>i` | Alternar inlay hints no buffer |
-| `<leader>go` | Abrir arquivo no remoto Git |
-| `<leader>gb` | Blame já fornecido pelo LazyVim |
-| `<leader>th` / `<leader>tu` | Fechar buffers ocultos / sem nome |
-| `<leader>1` a `<leader>6` | Ir para buffer listado |
-| `Ctrl+j` (normal) | Próximo diagnóstico |
-| `Ctrl+j` (inserção) | Próxima sugestão de completion |
+- `<leader><space>` / `<leader>/`: buscar arquivos / texto com o Snacks Picker.
+- `<leader>,`: listar buffers.
+- `<leader>cs`: outline de símbolos.
+- `<leader>cr`: renomear com prévia via LSP.
+- `+` / `-`: incrementar/decrementar com Dial (`<C-a>` / `<C-x>` pertencem ao OpenCode).
+- `]n` / `[n`: navegar nós Tree-sitter.
+- `<leader>j`: Flash.
+- `<leader>z`: Zen Mode.
+- `<leader>yr` / `<leader>yf`: copiar caminho relativo / com linha.
+- `<leader>r`: converter hex para HSL na linha.
+- `<leader>uh`: alternar inlay hints; `<leader>uv`: alternar diagnósticos inline.
+- `]d` / `[d`: próximo/anterior diagnóstico (padrão do LazyVim).
+- `<leader>go`: abrir arquivo no remoto Git; `<leader>gn`: Neogit; `<leader>gb`: blame do LazyVim.
+- `<leader>ac`: popup do Codex.
+- `<leader>th` / `<leader>tu`: fechar buffers ocultos / sem nome.
+- `<leader>1` a `<leader>6`: ir para buffer listado.
+- `<C-j>` / `<C-k>` (inserção): navegar sugestões do autocomplete.
 
-Os extras podem ser inspecionados em `:LazyExtras`.
-O realce de cores usa mini.hipatterns (hex e Tailwind).
-Prettier exige configuração do projeto para evitar disputar formatação com Biome.
-Bufferline exibe abas; os atalhos numéricos selecionam buffers.
+## LSP
 
-## Restaurar
+- Em um arquivo `.tsx` de projeto com ESLint, `:lua =vim.tbl_map(function(c) return c.name end, vim.lsp.get_clients({ bufnr = 0 }))`
+  mostra apenas `vtsls` e `eslint` (mais `tailwindcss` em projetos Tailwind).
+- `<leader>ce` aplica as correções do ESLint; salvar formata com Prettier e depois aplica o "fix all".
+- Em um projeto com Biome (Kolab), o ESLint não inicia.
+- Em um Markdown fora de projeto, o Marksman não usa a home como raiz.
 
-Feche o Neovim e execute no terminal. O experimento será preservado em outro diretório:
+## Interface
+
+- Markdown: números de linha contínuos e cercas de código visíveis (`conceallevel = 0`).
+- Com uma única janela não há winbar; ao dividir (`sv`), cada janela mostra o nome do arquivo à direita.
+- Statusline e winbar transparentes; o mini.hipatterns realça cores hex e classes Tailwind.
+
+## Restaurar o experimento original
+
+Feche o Neovim e execute no terminal. A configuração atual será preservada em outro diretório:
 
 ```bash
 mv ~/.config/nvim ~/.config/nvim-tutorial-$(date +%Y%m%d-%H%M%S)
 cp -a ~/.local/state/nvim-config-backups/20261020-230332 ~/.config/nvim
 ```
-
-A restauração recupera a configuração e o lockfile anteriores. Plugins baixados permanecem no cache de dados do Neovim.

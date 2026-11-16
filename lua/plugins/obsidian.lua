@@ -73,7 +73,15 @@ return {
             if vim.fs.root(bufnr, { ".obsidian" }) then
               return
             end
-            on_dir(vim.fs.root(bufnr, vim.lsp.config.marksman.root_markers))
+            -- ~/.git is a dotfiles repo: never let Marksman index the whole home directory.
+            local home = vim.uv.os_homedir()
+            local root = vim.fs.root(bufnr, vim.lsp.config.marksman.root_markers)
+            if not root or root == home then
+              root = vim.fs.dirname(vim.api.nvim_buf_get_name(bufnr))
+            end
+            if root ~= home then
+              on_dir(root)
+            end
           end,
         },
       },

@@ -18,10 +18,4 @@ return {
       },
     },
   },
-  {
-    "neovim/nvim-lspconfig",
-    init = function()
-      require("insideee-dev.project-eslint").setup()
-    end,
-  },
 }

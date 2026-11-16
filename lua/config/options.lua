@@ -1,3 +1,5 @@
+vim.opt.mouse = ""
+vim.opt.swapfile = false
 vim.g.lazyvim_mini_snippets_in_completion = false
 vim.g.lazyvim_prettier_needs_config = true
 vim.g.lazyvim_ts_lsp = "vtsls"
@@ -11,21 +13,4 @@ vim.opt.diffopt = {
   "algorithm:histogram",
   "indent-heuristic",
   "linematch:60",
-}
-
-return {
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "tokyonight",
-    },
-  },
-  {
-    "rcarriga/nvim-notify",
-    enabled = false,
-  },
-  {
-    "folke/noice.nvim",
-    enabled = false,
-  },
 }

@@ -8,6 +8,11 @@ return {
           event = "lsp",
           kind = "progress",
           cond = function(message)
+            -- Noice evaluates filter keys in arbitrary order, including cond before event/kind.
+            if message.event ~= "lsp" or message.kind ~= "progress" or not message.opts.progress then
+              return false
+            end
+
             -- Noice shares opts between progress updates and the completion message.
             local progress = message.opts
             if progress.progress.kind == "end" then

@@ -137,9 +137,24 @@ local function patch_octo_file_panel_tree()
     local title = "Files changed"
     add_hl("OctoFilePanelTitle", line_idx, 0, #title)
     local change_count = string.format("%s%d%s", conf.left_bubble_delimiter, #self.files, conf.right_bubble_delimiter)
-    add_hl("OctoBubbleDelimiterYellow", line_idx, strlen(title) + 1, strlen(title) + 1 + strlen(conf.left_bubble_delimiter))
-    add_hl("OctoBubbleYellow", line_idx, strlen(title) + 1 + strlen(conf.left_bubble_delimiter), strlen(title) + 1 + strlen(change_count) - strlen(conf.right_bubble_delimiter))
-    add_hl("OctoBubbleDelimiterYellow", line_idx, strlen(title) + 1 + strlen(change_count) - strlen(conf.right_bubble_delimiter), strlen(title) + 1 + strlen(change_count))
+    add_hl(
+      "OctoBubbleDelimiterYellow",
+      line_idx,
+      strlen(title) + 1,
+      strlen(title) + 1 + strlen(conf.left_bubble_delimiter)
+    )
+    add_hl(
+      "OctoBubbleYellow",
+      line_idx,
+      strlen(title) + 1 + strlen(conf.left_bubble_delimiter),
+      strlen(title) + 1 + strlen(change_count) - strlen(conf.right_bubble_delimiter)
+    )
+    add_hl(
+      "OctoBubbleDelimiterYellow",
+      line_idx,
+      strlen(title) + 1 + strlen(change_count) - strlen(conf.right_bubble_delimiter),
+      strlen(title) + 1 + strlen(change_count)
+    )
     table.insert(lines, title .. " " .. change_count)
     line_idx = line_idx + 1
 
@@ -295,12 +310,16 @@ return {
     "pwntester/octo.nvim",
     cmd = "Octo",
     opts = function(_, opts)
-      -- or "fzf-lua" or "snacks" or "default"
-      opts.picker = "telescope"
+      -- Telescope is not part of this config; LazyVim uses the Snacks picker.
+      opts.picker = "snacks"
       -- bare Octo command opens picker of commands
       opts.enable_builtin = true
 
       return opts
+    end,
+    config = function(_, opts)
+      require("octo").setup(opts)
+      patch_octo_file_panel_tree()
     end,
     keys = {
       {

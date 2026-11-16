@@ -27,9 +27,10 @@ local function scan(root)
         end
         state.buffers = {}
         for _, report in ipairs(reports) do
-          local bufnr = vim.fn.bufadd(report.filePath)
+          -- Only create buffers for files that actually have problems.
+          local bufnr = #(report.messages or {}) > 0 and vim.fn.bufadd(report.filePath) or nil
           -- The LSP owns diagnostics for open files, including unsaved changes.
-          if #vim.lsp.get_clients({ bufnr = bufnr, name = "eslint" }) == 0 then
+          if bufnr and #vim.lsp.get_clients({ bufnr = bufnr, name = "eslint" }) == 0 then
             local diagnostics = {}
             for _, message in ipairs(report.messages or {}) do
               local line = math.max((message.line or 1) - 1, 0)

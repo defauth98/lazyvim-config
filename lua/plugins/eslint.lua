@@ -1,15 +1,43 @@
 return {
   {
     "neovim/nvim-lspconfig",
+    init = function()
+      require("insideee-dev.project-eslint").setup()
+    end,
     opts = function(_, opts)
       local default_root_dir = vim.lsp.config.eslint.root_dir
       local kolab_root = vim.fn.expand("~/kolab/kolab-back-end")
       local kolab_git_dir = vim.uv.fs_realpath(kolab_root .. "/.git")
       local kolab_roots = { [kolab_root] = true }
 
-      opts.servers.eslint.settings.format = false
+      opts.servers = opts.servers or {}
+      local server = vim.tbl_deep_extend("force", opts.servers.eslint or {}, {
+        settings = {
+          format = false,
+          validate = "on",
+          run = "onType",
+          workingDirectory = { mode = "auto" },
+          codeAction = {
+            disableRuleComment = { enable = true, location = "separateLine" },
+            showDocumentation = { enable = true },
+          },
+        },
+      })
+      opts.servers.eslint = server
 
-      opts.servers.eslint.root_dir = function(bufnr, on_dir)
+      server.keys = server.keys or {}
+      table.insert(server.keys, {
+        "<leader>ce",
+        function()
+          vim.lsp.buf.code_action({
+            context = { only = { "source.fixAll.eslint" }, diagnostics = {} },
+            apply = true,
+          })
+        end,
+        desc = "ESLint: Fix all",
+      })
+
+      server.root_dir = function(bufnr, on_dir)
         -- This repository migrated to Biome but still contains orphaned ESLint configs.
         local biome_root = vim.fs.root(bufnr, { "biome.json", "biome.jsonc" })
         if biome_root then
@@ -51,7 +79,7 @@ return {
               local result, err = client:request_sync("workspace/executeCommand", {
                 command = "eslint.applyAllFixes",
                 arguments = {
-                  { uri = vim.uri_from_bufnr(bufnr), version = vim.lsp.util.buf_versions[bufnr] },
+                  { uri = vim.uri_from_bufnr(bufnr), version = vim.b[bufnr].changedtick },
                 },
               }, 3000, bufnr)
               if not result or result.err then

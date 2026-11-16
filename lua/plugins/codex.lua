@@ -4,12 +4,19 @@ return {
     lazy = true,
     cmd = { "Codex", "CodexToggle", "CodexSend", "CodexAttachFile", "CodexContext", "CodexInterrupt" },
     keys = {
-      { "<leader>cc", function() require("codex").toggle() end, mode = "n", desc = "Toggle Codex popup" },
+      {
+        "<leader>ac",
+        function()
+          require("codex").toggle()
+        end,
+        mode = "n",
+        desc = "Toggle Codex popup",
+      },
     },
     opts = {
       width = 0.48,
       personality = "pragmatic",
-      toggle_key = "<leader>cc",
+      toggle_key = "<leader>ac",
       quit_key = "<C-q>",
       send_key = "<CR>",
       attach_file_key = "<C-f>",

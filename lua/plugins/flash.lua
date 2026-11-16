@@ -4,7 +4,7 @@ return {
     keys = {
       { "s", mode = { "n", "x", "o" }, false },
       {
-        "<leader>s",
+        "<leader>j",
         mode = { "n", "x", "o" },
         function()
           require("flash").jump()

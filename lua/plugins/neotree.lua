@@ -7,12 +7,15 @@ return {
       function()
         local root = LazyVim.root()
         -- A .git marker can be empty or invalid; only trust roots recognized by Git.
-        local result = vim.system({ "git", "-C", root, "rev-parse", "--show-toplevel" }, { text = true }):wait(1000)
+        local in_git_repo = require("insideee-dev.utils").git_toplevel(root, 1000) ~= nil
         require("neo-tree.command").execute({
           source = "filesystem",
           toggle = true,
-          dir = result.code == 0 and root or vim.fn.getcwd(),
-        })
+          dir = in_git_repo and root or vim.fn.getcwd(),
+        }, not in_git_repo and {
+          enable_git_status = false,
+          filtered_items = { hide_gitignored = false },
+        } or nil)
       end,
       desc = "Explorer NeoTree (Project or cwd)",
     },

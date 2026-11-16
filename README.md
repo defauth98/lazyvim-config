@@ -1,136 +1,120 @@
 # 🚀 Minha Configuração LazyVim
 
-Configuração pessoal do Neovim baseada no [LazyVim](https://www.lazyvim.org/).
+Configuração pessoal do Neovim baseada no [LazyVim](https://www.lazyvim.org/). A lista exata de extras fica em
+`lazyvim.json` e pode ser inspecionada com `:LazyExtras`.
 
 ---
 
 ## 📦 Extras do LazyVim Ativos
 
-| Extra                   | Descrição                                     |
-| ----------------------- | --------------------------------------------- |
-| `ai.copilot`            | GitHub Copilot                                |
-| `coding.yanky`          | Histórico de clipboard avançado               |
-| `editor.neo-tree`       | Explorador de arquivos Neo-tree               |
-| `lang.typescript`       | Suporte completo a TypeScript/JavaScript      |
-| `lang.typescript.biome` | Formatter/linter Biome para TS                |
-| `util.gh`               | Integração com GitHub CLI                     |
-| `util.mini-hipatterns`  | Destaque de padrões no código (ex: cores hex) |
-| `linting.eslint`        | Linting com ESLint                            |
-| `formatting.prettier`   | Formatação com Prettier                       |
+- `ai.supermaven`: sugestões de IA no autocomplete.
+- `coding.mini-comment`, `coding.mini-snippets`, `coding.yanky`: comentários, snippets e histórico de clipboard.
+- `editor.neo-tree`, `editor.inc-rename`, `editor.dial`, `editor.outline`: explorador, rename com prévia,
+  incremento inteligente e outline de símbolos.
+- `formatting.prettier`, `linting.eslint`: formatação e lint.
+- `lang.json`, `lang.tailwind`, `lang.typescript`, `lang.typescript.biome`: linguagens.
+- `ui.indent-blankline`, `ui.mini-indentscope`, `ui.treesitter-context`: guias de indentação e contexto sticky.
+- `util.mini-hipatterns`, `util.startuptime`: realce de cores e medição de inicialização.
 
 ---
 
 ## ⌨️ Keymaps Personalizados
 
+Leader é Espaço; localleader é `\`.
+
 ### Navegação
 
-| Tecla   | Modo   | Ação                                     |
-| ------- | ------ | ---------------------------------------- |
-| `<C-d>` | Normal | Scroll para baixo + centraliza cursor    |
-| `<C-u>` | Normal | Scroll para cima + centraliza cursor     |
-| `n`     | Normal | Próximo resultado de busca + centraliza  |
-| `N`     | Normal | Resultado anterior de busca + centraliza |
-| `<C-p>` | Normal | Buscar arquivos (picker)                 |
-| `<C-f>` | Normal | Buscar texto no projeto (live grep)      |
+- `<C-d>` / `<C-u>`: rolar meia página e centralizar o cursor.
+- `n` / `N`: próximo/anterior resultado de busca, centralizado.
+- `<C-p>`: buscar arquivos (picker).
+- `<C-f>`: buscar texto no projeto (live grep).
+- `<leader>j`: Flash (pular para qualquer posição visível). O `s` do Flash fica livre para os atalhos de janela.
+- `te`: nova aba; `<Tab>` / `<S-Tab>`: próxima/anterior aba.
+- `ss` / `sv`: dividir horizontal/verticalmente; `sh`, `sj`, `sk`, `sl`: mover entre janelas.
+- `<leader>1` a `<leader>6`: ir para o buffer listado correspondente.
+- `]n` / `[n`: navegar nós Tree-sitter (mini.bracketed).
+
+Observação: `<Tab>` e `<C-i>` são a mesma tecla na maioria dos terminais, então `<C-i>` (avançar no histórico de
+saltos) fica indisponível. O mouse está desativado (`mouse = ""`).
 
 ### Edição
 
-- `Espaço y f` copia o caminho do arquivo relativo ao diretório atual e a linha para o clipboard, por exemplo: `src/app.ts:42`.
+- `<leader>p` (visual): colar sem sobrescrever o registro.
+- `<C-/>` (ou `<C-_>`), em normal/visual/inserção: alternar comentário.
+- `<leader>yr`: copiar o caminho relativo do arquivo.
+- `<leader>yf`: copiar caminho relativo e linha, por exemplo `src/app.ts:42`.
+- `<leader>r`: converter cores hex para HSL na linha atual.
+- `+` / `-` (normal/visual): incrementar/decrementar com Dial (números, datas, booleanos etc.).
 
-| Tecla       | Modo                 | Ação                                          |
-| ----------- | -------------------- | --------------------------------------------- |
-| `<leader>p` | Visual               | Colar sem sobrescrever o registro             |
-| `<C-/>`     | Normal/Visual/Insert | Alternar comentário de linha                  |
-| `<C-_>`     | Normal/Visual/Insert | Alternar comentário (fallback para terminais) |
+### Buffers, Git e diagnósticos
+
+- `<leader>th` / `<leader>tu`: fechar buffers ocultos / sem nome.
+- `<leader>go`: abrir o arquivo no remoto Git (navegador).
+- `<leader>gn`: Neogit.
+- `<leader>gF`: `git fetch origin` no diretório atual.
+- `<leader>sd` / `<leader>sD`: diagnósticos do projeto / do arquivo atual.
+- `<leader>uv`: alternar diagnósticos inline (virtual text), mantendo sinais e sublinhados.
+- `<leader>uh`: alternar inlay hints (atalho padrão do LazyVim).
+- `<leader>z`: Zen Mode.
 
 ### Navegação Tmux (`vim-tmux-navigator`)
 
-| Tecla   | Ação                         |
-| ------- | ---------------------------- |
-| `<M-h>` | Navegar para painel esquerdo |
-| `<M-j>` | Navegar para painel abaixo   |
-| `<M-k>` | Navegar para painel acima    |
-| `<M-l>` | Navegar para painel direito  |
-| `<M-\>` | Navegar para painel anterior |
+- `<M-h>`, `<M-j>`, `<M-k>`, `<M-l>`: navegar para o painel à esquerda, abaixo, acima e à direita.
+- `<M-\>`: voltar ao painel anterior.
+
+### IA
+
+- `<leader>ac`: abrir/fechar o popup do Codex.
+- `<C-a>` (normal/visual): perguntar ao OpenCode com o contexto atual.
+- `<C-x>` (normal/visual): selecionar ação do OpenCode.
+- `<C-.>` (normal/terminal): abrir/fechar o OpenCode.
+- `go` (operador) / `goo`: adicionar um range / a linha atual ao OpenCode.
+- `<S-C-u>` / `<S-C-d>`: rolar o OpenCode para cima/baixo.
+- `<Alt-a>` no picker do Snacks: enviar a seleção ao OpenCode.
 
 ### Octo (GitHub no Neovim)
 
-| Tecla        | Ação                             |
-| ------------ | -------------------------------- |
-| `<leader>oi` | Listar Issues                    |
-| `<leader>op` | Listar Pull Requests             |
-| `<leader>og` | Listar Discussions               |
-| `<leader>on` | Listar Notificações              |
-| `<leader>o/` | Pesquisar no GitHub              |
-| `<leader>or` | Iniciar review de PR             |
-| `<leader>oR` | Retomar review de PR             |
-| `<leader>ob` | Abrir review no browser          |
-| `<leader>oc` | Ver comentários pendentes        |
-| `<leader>os` | Submeter review                  |
-| `<leader>ox` | Descartar review                 |
-| `<leader>oe` | Abrir arquivos do PR no Neo-tree |
-| `<leader>of` | Listar arquivos alterados no PR  |
-| `<leader>od` | Ver diff do PR                   |
+- `<leader>oi`: listar issues; `<leader>op`: listar pull requests.
+- `<leader>og`: listar discussions; `<leader>on`: listar notificações.
+- `<leader>o/`: pesquisar no GitHub.
+- `<leader>or` / `<leader>oR`: iniciar / retomar review de PR.
+- `<leader>ob`: abrir review no navegador; `<leader>oc`: ver comentários pendentes.
+- `<leader>os` / `<leader>ox`: submeter / descartar review.
+- `<leader>oe`: revelar arquivos no Neo-tree.
 
-#### Durante o review (diff)
+Durante o review (atalhos padrão do Octo, com localleader `\`):
 
-| Tecla        | Ação                               |
-| ------------ | ---------------------------------- |
-| `<leader>ca` | Adicionar comentário de review     |
-| `<leader>sa` | Adicionar sugestão de review       |
-| `<leader>e`  | Focar no painel de arquivos        |
-| `<leader>b`  | Mostrar/ocultar painel de arquivos |
-| `<Space>`    | Marcar arquivo como visto          |
-| `]t` / `[t`  | Próxima/anterior thread            |
-| `]q` / `[q`  | Próximo/anterior arquivo alterado  |
-| `<C-c>`      | Fechar aba de review               |
-
-#### Submissão de review
-
-| Tecla   | Ação               |
-| ------- | ------------------ |
-| `<C-a>` | Aprovar review     |
-| `<C-m>` | Comentar review    |
-| `<C-r>` | Solicitar mudanças |
-
-### OpenCode (AI Coding Assistant)
-
-| Tecla     | Modo            | Ação                                   |
-| --------- | --------------- | -------------------------------------- |
-| `<C-a>`   | Normal/Visual   | Perguntar ao opencode com contexto     |
-| `<C-x>`   | Normal/Visual   | Selecionar no opencode                 |
-| `<C-.>`   | Normal/Terminal | Abrir/fechar opencode                  |
-| `go`      | Normal/Visual   | Adicionar range ao opencode (operador) |
-| `goo`     | Normal          | Adicionar linha atual ao opencode      |
-| `<S-C-u>` | Normal          | Scroll para cima no opencode           |
-| `<S-C-d>` | Normal          | Scroll para baixo no opencode          |
-| `+`       | Normal          | Incrementar número (substitui `<C-a>`) |
-| `-`       | Normal          | Decrementar número (substitui `<C-x>`) |
+- `\ca`: adicionar comentário; `\sa`: adicionar sugestão.
+- `\e`: focar no painel de arquivos; `\b`: mostrar/ocultar o painel.
+- `\<Space>`: marcar arquivo como visto.
+- `]t` / `[t`: próxima/anterior thread; `]q` / `[q`: próximo/anterior arquivo.
+- `<C-c>`: fechar a aba de review.
+- Na janela de submissão: `<C-a>` aprova, `<C-m>` comenta, `<C-r>` solicita mudanças.
 
 ---
 
 ## 🎨 Aparência
 
-- **Tema:** TokyoNight `night` com fundo **transparente**
-  - Sidebars e floats também transparentes
-- **Diagnósticos:** via [`tiny-inline-diagnostic`](https://github.com/rachartier/tiny-inline-diagnostic.nvim) — exibidos inline, sem `virtual_text` padrão
+- Tema TokyoNight `night` com fundo transparente, inclusive sidebars e floats.
+- Statusline global (lualine) transparente, com modo, branch, caminho, gravação de macro, diagnósticos e diff.
+- O nome do arquivo aparece no winbar de cada janela apenas quando há mais de um arquivo dividido na aba; com uma única
+  janela, o bufferline já identifica o arquivo.
+- Bufferline em modo buffers, sempre visível, sem ícones de fechar; arquivos `index` e `styles` mostram a pasta pai.
+- Diagnósticos sem virtual text por padrão (use `<leader>uv` para ativar).
+- Markdown abre com `conceallevel = 0`, para não esconder cercas de código e links (o que quebrava a numeração e a
+  quebra de linhas). Notas do vault Obsidian voltam a usar `conceallevel = 2`.
 
 ---
 
 ## 🔧 Opções Gerais (`options.lua`)
 
-| Opção            | Valor    | Efeito                                      |
-| ---------------- | -------- | ------------------------------------------- |
-| `swapfile`       | `false`  | Sem arquivos de swap                        |
-| `undofile`       | `true`   | Histórico de undo persistente               |
-| `autoread`       | `true`   | Recarrega arquivos modificados externamente |
-| `virtual_text`   | `false`  | Diagnósticos sem texto no fim da linha      |
-| `lazyvim_ts_lsp` | `"vtsls"` | Usa vtsls como LSP padrão para TypeScript  |
+- `mouse = ""`: mouse desativado.
+- `swapfile = false`: sem arquivos de swap.
+- `laststatus = 3` e `cmdheight = 0`: statusline global e linha de comando oculta (o Noice exibe os comandos).
+- `diffopt` com algoritmo histogram e `linematch:60`.
+- `lazyvim_ts_lsp = "vtsls"`, `lazyvim_prettier_needs_config = true`, `lazyvim_mini_snippets_in_completion = false`.
 
-### Plugins desativados
-
-- `nvim-notify` — notificações padrão desativadas
-- `folke/flash.nvim` — navegação por flash desativada
+O spell check fica desativado também nos tipos de arquivo em que o LazyVim o ativa (`autocmds.lua`).
 
 O Noice exibe o progresso dos servidores de linguagem somente após 10 segundos de execução. Operações rápidas e suas
 mensagens de conclusão ficam ocultas; erros, avisos e diagnósticos continuam visíveis (`lua/plugins/noice.lua`).
@@ -144,78 +128,64 @@ mensagens de conclusão ficam ocultas; erros, avisos e diagnósticos continuam v
 - Configuração em `lua/plugins/obsidian.lua`, usando o vault `~/obsidian/obsidian-vault-pessoal`.
 - Carrega ao abrir Markdown, executar `:Obsidian` ou usar um dos atalhos abaixo.
 - Busca pelo Snacks; autocomplete de links `[[` e tags `#` pelo LSP integrado ao blink.cmp.
-- Em vaults identificados pela pasta `.obsidian`, o Marksman não inicia; os links ficam a cargo do `obsidian-ls`, evitando diagnósticos incompatíveis com o Obsidian. Markdown fora dos vaults continua usando Marksman.
+- Em vaults identificados pela pasta `.obsidian`, o Marksman não inicia; os links ficam a cargo do `obsidian-ls`.
+- Fora dos vaults, o Marksman usa a raiz do projeto, mas nunca a home: como `~/.git` existe, um arquivo sem projeto
+  usaria a home inteira como workspace. Nesse caso ele usa a pasta do arquivo (e não inicia para arquivos na própria
+  home).
 - Notas diárias em `TODOLIST`, templates em `Templates` e imagens coladas em `anexos`, seguindo o aplicativo.
 - Novas notas usam nomes derivados do título; propriedades não são acrescentadas automaticamente ao frontmatter.
-- `Espaço n f`: buscar nota pelo nome.
-- `Espaço n s`: buscar texto nas notas.
-- `Espaço n n`: criar nota.
-- `Espaço n d`: abrir ou criar a nota de hoje.
-- `Espaço n b`: ver backlinks; `Espaço n l`: listar links; `Espaço n t`: buscar tags.
-- `Espaço n i`: inserir template; `Espaço n x`: alternar checkbox.
-- `Espaço n o`: abrir a nota no aplicativo Obsidian.
-- Dentro das notas: `Enter` segue links ou alterna checkboxes; `]o` / `[o` navegam entre links. `<C-a>` / `<C-x>` continuam disponíveis para o OpenCode.
+- `<leader>nf`: buscar nota pelo nome; `<leader>ns`: buscar texto nas notas.
+- `<leader>nn`: criar nota; `<leader>nd`: abrir ou criar a nota de hoje.
+- `<leader>nb`: backlinks; `<leader>nl`: links; `<leader>nt`: tags.
+- `<leader>ni`: inserir template; `<leader>nx`: alternar checkbox; `<leader>no`: abrir no aplicativo.
+- Dentro das notas: `Enter` segue links ou alterna checkboxes; `]o` / `[o` navegam entre links. `<C-a>` / `<C-x>`
+  continuam disponíveis para o OpenCode.
 - `:Obsidian` abre o menu de comandos; `:checkhealth obsidian` verifica a integração.
 
 ### [`blink.cmp`](https://github.com/saghen/blink.cmp) — Autocompletar
 
-- Fontes: `lsp`, `path`, `snippets` (buffers removidos)
-- Ghost text **desativado**
-- Documentação automática **desativada**
-- Assinatura de função (signature help) **desativada**
-- Keymaps de navegação: `<C-j>` / `<C-k>` para navegar, `<CR>` para aceitar
+- Configuração única em `lua/plugins/autocomplete.lua`.
+- Fontes: `lsp`, `path` e `supermaven`. Buffers e snippets ficam fora da lista.
+- Snippets enviados pelos servidores são inseridos como texto simples, sem sessão de snippet.
+- Ghost text, documentação automática e pré-seleção desativados; parênteses automáticos desativados.
+- Preset `enter`: `<CR>` e `<C-y>` aceitam; `<C-j>` / `<C-k>` navegam.
 
 ### [`codediff.nvim`](https://github.com/esmuellert/codediff.nvim) — Diff Git estilo VS Code
 
-- `<leader>gd` (`Espaço g d`) ou `:GitDiff` abre a visualização, sem acesso fixo na barra de abas.
-- Reutiliza a aba de diff de cada repositório, com árvore de arquivos e diff lado a lado.
-- Compacta pastas com um único subdiretório em uma linha, como `apps/back/src/app`.
-- Scroll vertical e horizontal sincronizado entre os dois lados do diff.
-- Atualiza as alterações automaticamente e mostra arquivos staged, unstaged e novos.
-- `q` fecha a visualização; use `:GitDiff` para reabrir.
-- `:CodeDiff` também está disponível para comparações avulsas. `diffview.nvim` permanece desativado.
-- `<leader>gF` (`Espaço g F`, com `F` maiúsculo) executa `git fetch origin` no diretório atual.
+- `<leader>gd` ou `:GitDiff` abre a visualização, reutilizando a aba de diff de cada repositório.
+- Árvore de arquivos com pastas compactadas, diff lado a lado e scroll sincronizado nos dois eixos.
+- Atualiza automaticamente e mostra arquivos staged, unstaged e novos.
+- `]c` / `[c` ou `<leader>hh` / `<leader>hp` navegam entre hunks no diff. Nos buffers normais, `<leader>hh` /
+  `<leader>hp` fazem o mesmo via GitSigns.
+- `q` fecha a visualização. `:CodeDiff` está disponível para comparações avulsas; `diffview.nvim` está desativado.
 
 ### [`vim-flog`](https://github.com/rbong/vim-flog) — Log visual do Git
 
-- Comandos: `:Flog`, `:Flogsplit`, `:Floggit`
-- Dependência: `vim-fugitive`
+- Comandos `:Flog`, `:Flogsplit` e `:Floggit`, com `vim-fugitive` como dependência.
 
 ### [`neo-tree.nvim`](https://github.com/nvim-neo-tree/neo-tree.nvim) — Explorador de arquivos
 
-- `Espaço e` / `Espaço f e`: abre a raiz do projeto reconhecido pelo Git; fora de um repositório válido, usa o diretório atual.
-- `Espaço E` / `Espaço f E`: abre sempre o diretório atual.
+- `<leader>e` / `<leader>fe`: abre a raiz do projeto reconhecido pelo Git; fora de um repositório válido, usa o
+  diretório atual, sem status Git e mostrando arquivos ignorados.
 - Uma pasta `.git` vazia ou inválida não faz o explorador subir para uma raiz incorreta.
-- Segue o arquivo atual automaticamente
-- Mostra dotfiles e arquivos gitignored
-- Oculta: `.git`, `node_modules`, `dist`
-- Largura: 54 colunas
-- Tecla `Y` — copiar caminho do arquivo com menu de opções (absoluto, relativo, nome, extensão)
-- Ícones de expansão customizados: `/`
+- Pastas vazias não são agrupadas; abas de fonte (winbar/statusline) ocultas.
+- `o`: abrir; `Y`: copiar caminho com menu (absoluto, relativo ao cwd ou à home, nome, nome sem extensão, extensão).
 
 ### [`octo.nvim`](https://github.com/pwntester/octo.nvim) — GitHub integrado
 
-- Picker: `snacks`
-- **Patch personalizado** no painel de arquivos de review: exibe os arquivos em **formato de árvore de diretórios** (ao invés de lista plana)
+- Picker do Snacks.
+- Patch personalizado no painel de arquivos do review: exibe os arquivos em árvore de diretórios, em vez de lista
+  plana.
 
-### [`opencode.nvim`](https://github.com/nickjvandyke/opencode.nvim) — AI assistant integrado
+### Outros
 
-- Integração com `snacks.nvim` para picker e input
-- Atalho `<Alt-a>` no picker para enviar ao opencode
-
-### [`scope.nvim`](https://github.com/tiagovla/scope.nvim) — Tabs com escopo por buffer
-
-### [`nvim-treesitter-context`](https://github.com/nvim-treesitter/nvim-treesitter-context) — Contexto sticky
-
-- Máx. 5 linhas de contexto
-- Modo: `cursor`
-- Escopo removido: `outer`
-
-### [`vim-tmux-navigator`](https://github.com/christoomey/vim-tmux-navigator) — Navegação Neovim ↔ Tmux
-
-### [`vim-be-good`](https://github.com/ThePrimeagen/vim-be-good) — Prática de movimentos Vim
-
-### [`vim-wakatime`](https://github.com/wakatime/vim-wakatime) — Tracking de tempo de código
+- [`scope.nvim`](https://github.com/tiagovla/scope.nvim): buffers com escopo por aba.
+- [`nvim-treesitter-context`](https://github.com/nvim-treesitter/nvim-treesitter-context): até 5 linhas de contexto,
+  modo `cursor`, corte pelo escopo externo.
+- [`marks.nvim`](https://github.com/chentoast/marks.nvim): marcas visíveis na coluna de sinais.
+- [`auto-indent.nvim`](https://github.com/vidocqh/auto-indent.nvim): posiciona o cursor na indentação correta.
+- [`vim-tmux-navigator`](https://github.com/christoomey/vim-tmux-navigator), [`vim-be-good`](https://github.com/ThePrimeagen/vim-be-good)
+  e [`vim-wakatime`](https://github.com/wakatime/vim-wakatime).
 
 ---
 
@@ -225,24 +195,23 @@ mensagens de conclusão ficam ocultas; erros, avisos e diagnósticos continuam v
 
 - O vtsls verifica os arquivos abertos; o diagnóstico experimental de arquivos fechados fica desativado.
 - O autocomplete TypeScript retorna até 200 sugestões por resposta, filtradas por relevância no servidor.
-  Digite mais caracteres para refinar os resultados.
-- O Tailwind LSP inicia quando encontra configuração Tailwind ou uma dependência `tailwindcss` no pacote ou workspace.
-  Projetos Tailwind v4 também são reconhecidos pela dependência, sem exigir `tailwind.config.*`.
+- O Tailwind LSP inicia quando encontra configuração Tailwind ou uma dependência `tailwindcss` no pacote ou workspace,
+  inclusive em projetos Tailwind v4 sem `tailwind.config.*`.
 - O plugin TypeScript de styled-components carrega apenas em workspaces ou pacotes que declaram `styled-components`.
-- O ESLint continua fornecendo diagnósticos dos arquivos abertos. Use `:EslintProject` para atualizar os diagnósticos
-  do projeto inteiro manualmente; abrir e salvar arquivos não executa mais `eslint .`.
+
+### ESLint (`lua/plugins/eslint.lua`)
+
+- Toda a configuração do ESLint fica neste arquivo: settings, atalho, raiz e formatação.
+- Diagnósticos dos arquivos abertos enquanto você digita. Use `:EslintProject` para atualizar os diagnósticos do
+  projeto inteiro manualmente.
+- `<leader>ce`: aplicar todas as correções do ESLint no arquivo.
+- Ao formatar, o "fix all" do ESLint roda depois do Prettier e espera as correções antes de salvar.
+- Quando o ESLint está ativo, o Prettier formata mesmo sem arquivo de configuração próprio, porque as regras do ESLint
+  não cuidam da formatação geral. Em projetos sem ESLint, o Prettier continua exigindo configuração.
 - O backend Kolab e suas worktrees usam Biome, sem iniciar ESLint.
 
 ### TypeScript (`vtsls`)
 
-- Heap do tsserver limitado a 8192 MiB (8 GiB), em vez do padrão de 3072 MiB, para projetos grandes.
-  Esse valor é um teto por processo, não uma reserva imediata de RAM; o consumo total pode ser maior que o heap.
-  Após alterar esse limite, reinicie o Neovim para aplicá-lo.
-- Todos os **inlay hints desativados** (tipos de retorno, parâmetros, variáveis, etc.)
-- Suporte a: `js`, `jsx`, `ts`, `tsx`
-
-### Bash LSP (`bashls`)
-
-- Diagnósticos ignorados em arquivos `.env*`
-
----
+- Heap do tsserver limitado a 8192 MiB (8 GiB), em vez do padrão de 3072 MiB, para projetos grandes. É um teto por
+  processo, não uma reserva imediata de RAM. Após alterar esse limite, reinicie o Neovim.
+- Inlay hints desativados por padrão (`<leader>uh` alterna).

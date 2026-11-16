@@ -12,7 +12,12 @@ return {
 
       opts.completion.documentation.auto_show = false -- Desativa a janela de documentação automática
 
+      opts.appearance = opts.appearance or {}
+      opts.appearance.nerd_font_variant = "mono"
+
       opts.keymap = opts.keymap or {}
+      opts.keymap.preset = "enter"
+      opts.keymap["<C-y>"] = { "select_and_accept", "fallback" }
       opts.keymap["<C-j>"] = { "select_next", "fallback" }
       opts.keymap["<C-k>"] = { "select_prev", "fallback" }
       opts.keymap["<CR>"] = { "select_and_accept", "fallback" }
@@ -27,12 +32,11 @@ return {
       end
 
       opts.sources.default = vim.tbl_filter(function(source)
-        return source ~= "snippets"
+        return source ~= "snippets" and source ~= "buffer"
       end, opts.sources.default)
       opts.sources.providers = opts.sources.providers or {}
       opts.sources.providers.snippets = { enabled = false }
 
-      opts.completion = opts.completion or {}
       opts.completion.ghost_text = opts.completion.ghost_text or {}
       opts.completion.ghost_text.enabled = false -- Desativa o ghost text no blink
       opts.completion.list = opts.completion.list or {}
