@@ -179,6 +179,7 @@ mensagens de conclusão ficam ocultas; erros, avisos e diagnósticos continuam v
 
 - `<leader>gd` ou `:GitDiff` abre a visualização, reutilizando a aba de diff de cada repositório.
 - Árvore de arquivos com pastas compactadas, diff lado a lado e scroll sincronizado nos dois eixos.
+- Quebra visual de linhas (`wrap`) ativa por padrão no editor e mantida nos painéis do CodeDiff.
 - Atualiza automaticamente e mostra arquivos staged, unstaged e novos.
 - `]c` / `[c` ou `<leader>hh` / `<leader>hp` navegam entre hunks no diff. Nos buffers normais, `<leader>hh` /
   `<leader>hp` fazem o mesmo via GitSigns.

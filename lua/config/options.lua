@@ -1,5 +1,6 @@
 vim.opt.mouse = ""
 vim.opt.swapfile = false
+vim.opt.wrap = true
 vim.g.lazyvim_mini_snippets_in_completion = false
 vim.g.lazyvim_prettier_needs_config = true
 vim.g.lazyvim_ts_lsp = "vtsls"
