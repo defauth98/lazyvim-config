@@ -4,7 +4,7 @@ vim.keymap.set("n", "n", "nzzzv", { desc = "Próximo resultado centralizado" })
 vim.keymap.set("n", "N", "Nzzzv", { desc = "Resultado anterior centralizado" })
 vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Colar sem sobrescrever o registro" })
 
-vim.keymap.set("n", "te", "<cmd>tabnew<cr>", { desc = "Nova aba" })
+-- `te` (nova aba com Neo-tree) fica em lua/plugins/neotree.lua.
 vim.keymap.set("n", "<Tab>", "gt", { desc = "Próxima aba" })
 vim.keymap.set("n", "<C-Tab>", "gT", { desc = "Aba anterior" })
 vim.keymap.set("n", "ss", "<cmd>split<cr>", { desc = "Dividir horizontalmente" })

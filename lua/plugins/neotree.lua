@@ -1,3 +1,17 @@
+-- Open Neo-tree at the Git project root, or at the cwd when the root is not a valid repository.
+local function open_explorer(root, toggle)
+  -- A .git marker can be empty or invalid; only trust roots recognized by Git.
+  local in_git_repo = require("insideee-dev.utils").git_toplevel(root, 1000) ~= nil
+  require("neo-tree.command").execute({
+    source = "filesystem",
+    toggle = toggle,
+    dir = in_git_repo and root or vim.fn.getcwd(),
+  }, not in_git_repo and {
+    enable_git_status = false,
+    filtered_items = { hide_gitignored = false },
+  } or nil)
+end
+
 return {
   "nvim-neo-tree/neo-tree.nvim",
   cmd = "Neotree",
@@ -5,21 +19,21 @@ return {
     {
       "<leader>fe",
       function()
-        local root = LazyVim.root()
-        -- A .git marker can be empty or invalid; only trust roots recognized by Git.
-        local in_git_repo = require("insideee-dev.utils").git_toplevel(root, 1000) ~= nil
-        require("neo-tree.command").execute({
-          source = "filesystem",
-          toggle = true,
-          dir = in_git_repo and root or vim.fn.getcwd(),
-        }, not in_git_repo and {
-          enable_git_status = false,
-          filtered_items = { hide_gitignored = false },
-        } or nil)
+        open_explorer(LazyVim.root(), true)
       end,
       desc = "Explorer NeoTree (Project or cwd)",
     },
     { "<leader>e", "<leader>fe", desc = "Explorer NeoTree (Project or cwd)", remap = true },
+    {
+      "te",
+      function()
+        -- Resolve the project from the current file before the new tab replaces it with an empty buffer.
+        local root = LazyVim.root()
+        vim.cmd("tabnew")
+        open_explorer(root, false)
+      end,
+      desc = "Nova aba com Neo-tree",
+    },
   },
   opts = function(_, opts)
     opts.filesystem = opts.filesystem or {}
