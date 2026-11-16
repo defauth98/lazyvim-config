@@ -175,19 +175,20 @@ mensagens de conclusão ficam ocultas; erros, avisos e diagnósticos continuam v
 - Ghost text, documentação automática e pré-seleção desativados; parênteses automáticos desativados.
 - Preset `enter`: `<CR>` e `<C-y>` aceitam; `<C-j>` / `<C-k>` navegam.
 
-### [`diffview-plus.nvim`](https://github.com/dlyongemallo/diffview-plus.nvim) — Diff Git
+### [`codediff.nvim`](https://github.com/esmuellert/codediff.nvim) — Diff Git estilo VS Code
 
-- Fork mantido do `diffview.nvim`, fixado na última versão publicada (`version = "*"`).
-- `<leader>gd` ou `:GitDiff` abre `:DiffviewOpen` na raiz do repositório, reutilizando a aba de diff de cada
-  repositório.
-- Lista plana dos arquivos com alterações (staged, unstaged e novos), diff lado a lado (`diff2_horizontal`) com
-  realce aprimorado.
-- Os dois lados herdam o `wrap` global: o plugin não força `nowrap`, então não há personalização extra.
-- `t` no painel de arquivos ou `g<C-x>` alterna entre lado a lado e inline (`diff1_inline`).
+- `<leader>gd` ou `:GitDiff` abre a visualização, reutilizando a aba de diff de cada repositório.
+- Lista plana dos arquivos com alterações. Texto e Markdown (`.txt`, `.text`, `.md`, `.markdown`, `.mdx`)
+  usam diff inline; os demais arquivos usam lado a lado com scroll sincronizado nos dois eixos.
+- O layout acompanha o arquivo selecionado. `t` alterna manualmente até a próxima troca de arquivo;
+  conflitos mantêm a visualização do plugin.
+- Os painéis usam `nowrap`, como o plugin define: o wrap desalinha as linhas de preenchimento entre os dois lados
+  ([issue #50](https://github.com/esmuellert/codediff.nvim/issues/50)). A quebra de linhas segue ativa no restante do
+  editor.
+- Atualiza automaticamente e mostra arquivos staged, unstaged e novos.
 - `]c` / `[c` ou `<leader>hh` / `<leader>hp` navegam entre hunks no diff. Nos buffers normais, `<leader>hh` /
   `<leader>hp` fazem o mesmo via GitSigns.
-- `q` fecha a visualização; `g?` mostra os atalhos. `:DiffviewFileHistory %` abre o histórico do arquivo.
-- O Neogit usa o diffview-plus como integração de diff.
+- `q` fecha a visualização. `:CodeDiff` está disponível para comparações avulsas; `diffview.nvim` está desativado.
 
 ### [`vim-flog`](https://github.com/rbong/vim-flog) — Log visual do Git
 
