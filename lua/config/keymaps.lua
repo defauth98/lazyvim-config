@@ -66,6 +66,19 @@ Snacks.toggle({
   end,
 }):map("<leader>uv")
 
+vim.keymap.set("n", "<leader>cy", function()
+  local diagnostics = vim.diagnostic.get(0, { lnum = vim.fn.line(".") - 1 })
+  if #diagnostics == 0 then
+    vim.notify("Nenhum diagnóstico nesta linha", vim.log.levels.WARN)
+    return
+  end
+  local messages = vim.tbl_map(function(diagnostic)
+    return diagnostic.message
+  end, diagnostics)
+  vim.fn.setreg("+", table.concat(messages, "\n"))
+  vim.notify("Copiado: " .. #diagnostics .. " diagnóstico(s)")
+end, { desc = "Copiar diagnósticos da linha" })
+
 -- Toggle comment with CTRL+/
 vim.keymap.set("n", "<C-/>", "gcc", { remap = true, desc = "Toggle comment" })
 vim.keymap.set("v", "<C-/>", "gc", { remap = true, desc = "Toggle comment" })

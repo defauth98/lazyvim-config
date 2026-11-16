@@ -26,6 +26,7 @@ original ("LazyVim Part 3") está em `/home/defauth/.local/state/nvim-config-bac
 - `<leader>yr` / `<leader>yf`: copiar caminho relativo / com linha.
 - `<leader>r`: converter hex para HSL na linha.
 - `<leader>uh`: alternar inlay hints; `<leader>uv`: alternar diagnósticos inline.
+- `<leader>cy`: numa linha com erro, copia a mensagem; cole em outro app para conferir.
 - `]d` / `[d`: próximo/anterior diagnóstico (padrão do LazyVim).
 - `<leader>go`: abrir arquivo no remoto Git; `<leader>gn`: Neogit; `<leader>gb`: blame do LazyVim.
 - `<leader>ac`: popup do Codex.
