@@ -2,6 +2,15 @@ return {
   {
     "akinsho/bufferline.nvim",
     opts = function(_, opts)
+      -- Keep the tab row transparent like the rest of the Tokyo Night setup.
+      opts.highlights = function(defaults)
+        local highlights = vim.deepcopy(defaults.highlights)
+        for _, group in pairs(highlights) do
+          group.bg = "NONE"
+        end
+        return highlights
+      end
+
       opts.options = opts.options or {}
       opts.options.mode = "tabs"
       opts.options.always_show_bufferline = true

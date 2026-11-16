@@ -97,7 +97,7 @@ Durante o review (atalhos padrão do Octo, com localleader `\`):
 
 - Tema TokyoNight `night` com fundo transparente, inclusive sidebars e floats.
 - Statusline global (lualine) transparente, com modo, branch, caminho, gravação de macro, diagnósticos e diff.
-- Barra superior (bufferline) em modo abas, sempre visível, sem ícones de fechar. Cada aba leva o nome do arquivo da
+- Barra superior (bufferline) em modo abas, transparente (sem faixa de fundo), sempre visível, sem ícones de fechar. Cada aba leva o nome do arquivo da
   janela focada; o Neo-tree e outros painéis laterais nunca dão nome à aba. Arquivos `index` e `styles` mostram a
   pasta pai.
 - O nome do arquivo aparece no winbar de cada janela apenas quando há mais de um arquivo dividido na aba; com um único
