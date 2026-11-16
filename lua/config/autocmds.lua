@@ -53,28 +53,42 @@ local function fit_diagnostic_float(win)
   vim.api.nvim_win_set_config(win, config)
 end
 
+local function open_diagnostic_float()
+  -- Don't cover hover docs, signature help or another float that is already open.
+  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+    local config = vim.api.nvim_win_get_config(win)
+    if config.relative ~= "" and config.focusable then
+      return
+    end
+  end
+  local _, win = vim.diagnostic.open_float(nil, {
+    focusable = false,
+    scope = "line",
+    border = "rounded",
+    max_width = diagnostic_float_width,
+    wrap = true,
+    prefix = function(_, index, total)
+      return total > 1 and (index .. ". ") or "", "NormalFloat"
+    end,
+  })
+  if win then
+    fit_diagnostic_float(win)
+  end
+end
+
+-- CursorHold fires after 'updatetime' (200ms in LazyVim, also used by LSP highlights); wait the rest of 500ms here.
+local diagnostic_float_delay = 500
 vim.api.nvim_create_autocmd("CursorHold", {
   group = vim.api.nvim_create_augroup("diagnostic_float_on_hold", { clear = true }),
   callback = function()
-    -- Don't cover hover docs, signature help or another float that is already open.
-    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-      local config = vim.api.nvim_win_get_config(win)
-      if config.relative ~= "" and config.focusable then
-        return
+    local win = vim.api.nvim_get_current_win()
+    local cursor = vim.api.nvim_win_get_cursor(win)
+    vim.defer_fn(function()
+      local same_place = vim.api.nvim_get_current_win() == win
+        and vim.deep_equal(vim.api.nvim_win_get_cursor(win), cursor)
+      if same_place and vim.api.nvim_get_mode().mode == "n" then
+        open_diagnostic_float()
       end
-    end
-    local _, win = vim.diagnostic.open_float(nil, {
-      focusable = false,
-      scope = "line",
-      border = "rounded",
-      max_width = diagnostic_float_width,
-      wrap = true,
-      prefix = function(_, index, total)
-        return total > 1 and (index .. ". ") or "", "NormalFloat"
-      end,
-    })
-    if win then
-      fit_diagnostic_float(win)
-    end
+    end, math.max(0, diagnostic_float_delay - vim.o.updatetime))
   end,
 })
