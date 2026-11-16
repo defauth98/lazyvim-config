@@ -37,7 +37,16 @@ return {
 
     opts.window = opts.window or {}
     opts.window.mappings = opts.window.mappings or {}
-    opts.window.mappings["o"] = "open"
+    -- Open files in a new tab (or focus the tab already showing them); an empty tab is reused.
+    local function open_in_tab(state)
+      if require("insideee-dev.utils").tab_has_file_window() then
+        state.commands.open_tab_drop(state)
+      else
+        state.commands.open(state)
+      end
+    end
+    opts.window.mappings["<cr>"] = open_in_tab
+    opts.window.mappings["o"] = open_in_tab
     opts.window.mappings["Y"] = function(state)
       local node = state.tree:get_node()
       if not node or not node.id then
