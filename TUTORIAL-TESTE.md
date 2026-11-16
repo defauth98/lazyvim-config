@@ -9,13 +9,12 @@ original ("LazyVim Part 3") está em `/home/defauth/.local/state/nvim-config-bac
 - `:Lazy` não mostra plugins com erro; `:LazyExtras` lista os extras de `lazyvim.json`.
 - `:checkhealth vim.lsp` não aponta servidores duplicados.
 
-## Layout do CodeDiff
+## Diffview
 
-- Em `:GitDiff`, selecionar `.md`, `.markdown`, `.mdx`, `.txt` e `.text`: diff inline, em um painel.
-- Selecionar um arquivo de código: volta ao diff lado a lado; voltar ao Markdown restaura inline.
-- `t` alterna manualmente e mantém a escolha até selecionar outro arquivo.
-- Com um Markdown aberto, `:CodeDiff file HEAD` também escolhe inline; conflitos mantêm o layout do plugin.
-- Ambos os layouts continuam com `nowrap`; trocar de arquivo rapidamente não deve abrir painéis extras.
+- `<leader>gd` abre o diff lado a lado; repetir o atalho de outra aba volta à aba de diff existente.
+- Linhas longas quebram nos dois lados (`:set wrap?` mostra `wrap` em ambos).
+- `t` no painel de arquivos ou `g<C-x>` alterna para inline e de volta.
+- `]c` / `[c` e `<leader>hh` / `<leader>hp` navegam entre hunks; `q` fecha.
 
 ## Atalhos
 
