@@ -122,7 +122,9 @@ Durante o review (atalhos padrão do Octo, com localleader `\`):
   pasta pai.
 - O nome do arquivo aparece no winbar de cada janela apenas quando há mais de um arquivo dividido na aba; com um único
   arquivo, a barra superior já o identifica. O Neo-tree e outros painéis não têm winbar. O winbar também é transparente (`WinBar`/`WinBarNC` sem fundo).
-- Diagnósticos sem virtual text por padrão (use `<leader>uv` para ativar).
+- Diagnósticos sem virtual text por padrão (use `<leader>uv` para ativar). Ao parar o cursor numa linha com erro, a
+  mensagem abre numa janela flutuante com borda arredondada, que fecha ao mover o cursor; ela não abre por cima de
+  hover ou assinatura.
 - Markdown abre com `conceallevel = 0`, para não esconder cercas de código e links (o que quebrava a numeração e a
   quebra de linhas). Notas do vault Obsidian voltam a usar `conceallevel = 2`.
 

@@ -16,3 +16,25 @@ vim.api.nvim_create_autocmd("FileType", {
     vim.opt_local.conceallevel = 0
   end,
 })
+
+-- Inline diagnostics are off (lua/plugins/lsp.lua), so show the line's messages in a float when the cursor rests.
+vim.api.nvim_create_autocmd("CursorHold", {
+  group = vim.api.nvim_create_augroup("diagnostic_float_on_hold", { clear = true }),
+  callback = function()
+    -- Don't cover hover docs, signature help or another float that is already open.
+    for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
+      local config = vim.api.nvim_win_get_config(win)
+      if config.relative ~= "" and config.focusable then
+        return
+      end
+    end
+    vim.diagnostic.open_float(nil, {
+      focusable = false,
+      scope = "line",
+      border = "rounded",
+      prefix = function(_, index, total)
+        return total > 1 and (index .. ". ") or "", "NormalFloat"
+      end,
+    })
+  end,
+})
