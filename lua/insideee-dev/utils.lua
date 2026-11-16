@@ -17,20 +17,6 @@ function M.git_toplevel(directory, timeout)
     return vim.trim(result.stdout)
   end
 end
--- True when the current tab already shows a named file in a normal (non-floating) window.
-function M.tab_has_file_window()
-  for _, win in ipairs(vim.api.nvim_tabpage_list_wins(0)) do
-    local buf = vim.api.nvim_win_get_buf(win)
-    if
-      vim.api.nvim_win_get_config(win).relative == ""
-      and vim.bo[buf].buftype == ""
-      and vim.api.nvim_buf_get_name(buf) ~= ""
-    then
-      return true
-    end
-  end
-  return false
-end
 function M.hex_to_rgb(hex)
   local value = hex:gsub("^#", "")
   assert(value:match("^%x+$") and (#value == 3 or #value == 6), "Cor hex inválida")
