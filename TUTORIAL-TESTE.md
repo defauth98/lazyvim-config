@@ -12,6 +12,9 @@ original ("LazyVim Part 3") está em `/home/defauth/.local/state/nvim-config-bac
 ## Atalhos
 
 - `<leader><space>`: buscar arquivo e abrir numa nova aba; `<C-p>` / `;f`: abrir na aba atual (`<leader>ff` não existe mais).
+- `;f` encontra arquivos ocultos (ex.: `.prettierrc.json`); `;r` busca texto também neles.
+- `;;` reabre o último picker; `;b` buffers (vai à janela que já mostra o arquivo); `;e` diagnósticos; `;n` notificações;
+  `;h` hunks do Git; `;c` chamadas recebidas pelo LSP.
 - `<leader>/`: buscar texto com o Snacks Picker.
 - `<leader>,`: listar buffers.
 - `<leader>cs`: outline de símbolos.

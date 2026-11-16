@@ -28,8 +28,21 @@ Leader é Espaço; localleader é `\`.
 - `n` / `N`: próximo/anterior resultado de busca, centralizado.
 - `<leader><space>`: buscar arquivos e abrir o escolhido numa nova aba (se já estiver aberto em outra aba, ela é
   focada).
-- `<C-p>` ou `;f`: buscar arquivos e abrir na aba/janela atual (`;f` substitui o `<leader>ff` do LazyVim, que foi
-  removido). Como `;` também repete o último `f`/`t`, ele espera um instante antes de agir sozinho.
+- `<C-p>`: buscar arquivos e abrir na aba/janela atual.
+
+### Pickers com `;`
+
+Abrem o resultado na janela atual. Como `;` também repete o último `f`/`t`, ele espera um instante antes de agir
+sozinho.
+
+- `;f`: buscar arquivos, incluindo ocultos (substitui o `<leader>ff` do LazyVim, que foi removido).
+- `;r`: buscar texto no projeto, incluindo arquivos ocultos.
+- `;;`: reabrir o picker anterior, com a mesma busca.
+- `;b`: listar buffers; se o arquivo já está visível numa janela (em qualquer aba), vai para ela.
+- `;e`: listar diagnósticos do projeto.
+- `;n`: histórico de notificações.
+- `;h`: listar trechos alterados pelo Git (hunks).
+- `;c`: chamadas recebidas da função sob o cursor (LSP). Com um único resultado, salta direto para ele.
 - `<C-f>`: buscar texto no projeto (live grep).
 - `<leader>j`: Flash (pular para qualquer posição visível). O `s` do Flash fica livre para os atalhos de janela.
 - `te`: nova aba já com o Neo-tree aberto na raiz do projeto do arquivo atual (ou no cwd fora de Git); `<Tab>` /

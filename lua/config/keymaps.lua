@@ -24,7 +24,29 @@ vim.keymap.set(
   { desc = "Buscar arquivos (nova aba)" }
 )
 pcall(vim.keymap.del, "n", "<leader>ff")
-vim.keymap.set("n", ";f", LazyVim.pick("files"), { desc = "Buscar arquivos (aba atual)" })
+
+-- Pickers under ";" (Snacks). They open results in the current window.
+vim.keymap.set("n", ";f", LazyVim.pick("files", { hidden = true }), { desc = "Buscar arquivos (inclui ocultos)" })
+vim.keymap.set("n", ";r", LazyVim.pick("live_grep", { hidden = true }), { desc = "Buscar texto (inclui ocultos)" })
+vim.keymap.set("n", ";;", function()
+  Snacks.picker.resume()
+end, { desc = "Reabrir picker anterior" })
+vim.keymap.set("n", ";b", function()
+  -- drop focuses the window (in any tab) that already shows the buffer.
+  Snacks.picker.buffers({ confirm = "drop" })
+end, { desc = "Buffers (vai à janela aberta)" })
+vim.keymap.set("n", ";e", function()
+  Snacks.picker.diagnostics()
+end, { desc = "Diagnósticos" })
+vim.keymap.set("n", ";n", function()
+  Snacks.picker.notifications()
+end, { desc = "Histórico de notificações" })
+vim.keymap.set("n", ";h", function()
+  Snacks.picker.git_diff()
+end, { desc = "Trechos alterados (Git)" })
+vim.keymap.set("n", ";c", function()
+  Snacks.picker.lsp_incoming_calls()
+end, { desc = "Chamadas recebidas (LSP)" })
 vim.keymap.set("n", "<C-f>", LazyVim.pick("live_grep"), { desc = "Buscar texto no projeto" })
 
 -- Toggle inline diagnostics while keeping signs and underlines.
