@@ -1,4 +1,5 @@
 vim.opt.mouse = "a"
+vim.opt.relativenumber = false
 vim.opt.swapfile = false
 vim.opt.wrap = true
 vim.g.lazyvim_mini_snippets_in_completion = false
