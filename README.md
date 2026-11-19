@@ -178,13 +178,8 @@ mensagens de conclusão ficam ocultas; erros, avisos e diagnósticos continuam v
 ### [`codediff.nvim`](https://github.com/esmuellert/codediff.nvim) — Diff Git estilo VS Code
 
 - `<leader>gd` ou `:GitDiff` abre a visualização, reutilizando a aba de diff de cada repositório.
-- Lista plana dos arquivos com alterações. Texto e Markdown (`.txt`, `.text`, `.md`, `.markdown`, `.mdx`)
-  usam diff inline; os demais arquivos usam lado a lado com scroll sincronizado nos dois eixos.
-- O layout acompanha o arquivo selecionado. `t` alterna manualmente até a próxima troca de arquivo;
-  conflitos mantêm a visualização do plugin.
-- Os painéis usam `nowrap`, como o plugin define: o wrap desalinha as linhas de preenchimento entre os dois lados
-  ([issue #50](https://github.com/esmuellert/codediff.nvim/issues/50)). A quebra de linhas segue ativa no restante do
-  editor.
+- Lista plana dos arquivos com alterações. Todos os arquivos usam diff inline (um painel só); `t` alterna para lado
+  a lado quando necessário. Conflitos mantêm a visualização do plugin.
 - Atualiza automaticamente e mostra arquivos staged, unstaged e novos.
 - `]c` / `[c` ou `<leader>hh` / `<leader>hp` navegam entre hunks no diff. Nos buffers normais, `<leader>hh` /
   `<leader>hp` fazem o mesmo via GitSigns.
