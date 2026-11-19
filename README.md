@@ -248,4 +248,6 @@ mensagens de conclusão ficam ocultas; erros, avisos e diagnósticos continuam v
 
 - Heap do tsserver limitado a 8192 MiB (8 GiB), em vez do padrão de 3072 MiB, para projetos grandes. É um teto por
   processo, não uma reserva imediata de RAM. Após alterar esse limite, reinicie o Neovim.
+- Ao iniciar outro `tsconfig`, o indicador de inicialização anterior do vtsls é encerrado. Isso evita mensagens
+  `Initializing` penduradas em monorepos com projetos aninhados, mesmo quando o servidor já responde.
 - Inlay hints desativados por padrão (`<leader>uh` alterna).

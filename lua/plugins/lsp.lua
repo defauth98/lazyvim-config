@@ -21,6 +21,23 @@ return {
           },
         },
         vtsls = {
+          handlers = {
+            ["$/progress"] = function(err, params, ctx, config)
+              local client = vim.lsp.get_client_by_id(ctx.client_id)
+              local value = params.value
+              if client and type(value) == "table" and value.kind == "begin" then
+                if type(value.title) == "string" and value.title:match("^Initializing '") then
+                  -- vtsls has one initialization indicator, but nested tsconfigs can leave older tokens unfinished.
+                  for token, title in pairs(client.progress.pending) do
+                    if token ~= params.token and title:match("^Initializing '") then
+                      vim.lsp.handlers["$/progress"](nil, { token = token, value = { kind = "end" } }, ctx, config)
+                    end
+                  end
+                end
+              end
+              return vim.lsp.handlers["$/progress"](err, params, ctx, config)
+            end,
+          },
           settings = {
             complete_function_calls = false,
             vtsls = {
