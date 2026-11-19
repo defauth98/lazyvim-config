@@ -14,6 +14,7 @@ return {
   {
     "lewis6991/gitsigns.nvim",
     opts = function(_, opts)
+      opts.attach_to_untracked = true
       require("insideee-dev.gitsigns-wrap").setup()
       local on_attach = opts.on_attach
       opts.on_attach = function(buffer)
@@ -22,6 +23,9 @@ return {
         for _, key in ipairs({ "<leader>ghd", "<leader>ghD", "<leader>ghp", "<leader>gp" }) do
           pcall(vim.keymap.del, "n", key, { buffer = buffer })
         end
+        vim.keymap.set("n", "<leader>ga", function()
+          require("gitsigns").stage_buffer()
+        end, { buffer = buffer, desc = "Stage do arquivo atual" })
         vim.keymap.set("n", "<leader>hd", function()
           vim.wo.wrap = true
           require("gitsigns").preview_hunk_inline()
