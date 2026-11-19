@@ -185,6 +185,12 @@ mensagens de conclusão ficam ocultas; erros, avisos e diagnósticos continuam v
   `<leader>hp` fazem o mesmo via GitSigns.
 - `q` fecha a visualização. `:CodeDiff` está disponível para comparações avulsas; `diffview.nvim` está desativado.
 
+### [`gitsigns.nvim`](https://github.com/lewis6991/gitsigns.nvim) — Diff no buffer
+
+- `<leader>hd` mostra o hunk inline, com quebra visual de linhas longas, incluindo as linhas removidas.
+- A prévia se ajusta ao redimensionar a janela e mantém os realces do GitSigns. O arquivo não é alterado.
+- `lua/insideee-dev/gitsigns-wrap.lua` adapta o renderizador de linhas virtuais da versão fixada no lockfile.
+
 ### [`vim-flog`](https://github.com/rbong/vim-flog) — Log visual do Git
 
 - Comandos `:Flog`, `:Flogsplit` e `:Floggit`, com `vim-fugitive` como dependência.

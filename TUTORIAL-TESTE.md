@@ -16,6 +16,8 @@ original ("LazyVim Part 3") está em `/home/defauth/.local/state/nvim-config-bac
 
 ## Atalhos
 
+- `<leader>hd`: num hunk com linhas longas, a prévia inline quebra tanto as linhas atuais quanto as removidas.
+  Redimensionar o split recalcula a quebra; mover o cursor fecha a prévia sem modificar o arquivo.
 - `<leader><space>`: buscar arquivo e abrir numa nova aba; `<C-p>` / `;f`: abrir na aba atual (`<leader>ff` não existe mais).
 - `;f` encontra arquivos ocultos (ex.: `.prettierrc.json`); `;r` busca texto também neles.
 - `;;` reabre o último picker; `;b` buffers (vai à janela que já mostra o arquivo); `;e` diagnósticos; `;n` notificações;
