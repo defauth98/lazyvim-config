@@ -71,6 +71,7 @@ saltos) fica indisponível. O mouse está ativado em todos os modos (`mouse = "a
 - `<leader>gn`: Neogit.
 - `<leader>gF`: `git fetch origin` no diretório atual.
 - `<leader>ga`: colocar todas as alterações do buffer atual em stage pelo GitSigns (inclui arquivos novos).
+  Ao terminar, limpa a prévia inline e atualiza o estado Git no Neo-tree aberto.
 - `<leader>sd` / `<leader>sD`: diagnósticos do projeto / do arquivo atual.
 - `<leader>uv`: alternar diagnósticos inline (virtual text), mantendo sinais e sublinhados.
 - `<leader>cy`: copiar para o clipboard as mensagens de diagnóstico da linha do cursor.

@@ -37,7 +37,8 @@ original ("LazyVim Part 3") está em `/home/defauth/.local/state/nvim-config-bac
 - `]d` / `[d`: próximo/anterior diagnóstico (padrão do LazyVim).
 - `<leader>go`: abrir arquivo no remoto Git; `<leader>gn`: Neogit; `<leader>gb`: blame do LazyVim.
 - `<leader>ga`: em um arquivo Git alterado ou novo, colocar todas as alterações do buffer em stage;
-  conferir no Neogit ou em `git diff --cached`.
+  conferir no Neogit ou em `git diff --cached`. Com a prévia inline (`<leader>hd`) e o Neo-tree abertos,
+  verificar que a prévia desaparece e o indicador Git da árvore muda para staged sem mover o cursor.
 - `<leader>ac`: popup do Codex.
 - `<leader>th` / `<leader>tu`: fechar buffers ocultos / sem nome.
 - `<leader>1` a `<leader>6`: ir para buffer listado.
