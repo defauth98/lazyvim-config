@@ -13,8 +13,13 @@ Configuração pessoal do Neovim baseada no [LazyVim](https://www.lazyvim.org/).
   incremento inteligente e outline de símbolos.
 - `formatting.prettier`, `linting.eslint`: formatação e lint.
 - `lang.json`, `lang.tailwind`, `lang.typescript`, `lang.typescript.biome`: linguagens.
-- `ui.indent-blankline`, `ui.mini-indentscope`, `ui.treesitter-context`: guias de indentação e contexto sticky.
+- `ui.treesitter-context`: contexto sticky.
 - `util.mini-hipatterns`, `util.startuptime`: realce de cores e medição de inicialização.
+
+Guias de indentação no estilo do VS Code: linhas finas em cinza (`#404040`) com o bloco atual em cinza mais claro
+(`#707070`), sem animação ou sublinhado. `lua/plugins/indent.lua` configura as guias do Snacks e
+`lua/plugins/tokyo-night.lua` define suas cores. Os extras `ui.indent-blankline` e `ui.mini-indentscope` continuam
+desativados para evitar guias duplicadas. Os indicadores de alterações do GitSigns continuam ativos.
 
 ---
 

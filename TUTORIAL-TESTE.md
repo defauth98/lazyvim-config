@@ -54,6 +54,10 @@ original ("LazyVim Part 3") está em `/home/defauth/.local/state/nvim-config-bac
 
 ## Interface
 
+- Em um arquivo JS/TS com blocos aninhados, aparecem guias finas em cinza, inclusive nas linhas vazias entre
+  blocos. Ao mover o cursor, a guia do bloco atual fica cinza mais clara, sem animação ou sublinhado.
+  Confira também splits e janelas flutuantes: o destaque acompanha a janela atual; os sinais do Git continuam
+  visíveis na margem ao alterar linhas de um arquivo rastreado.
 - Markdown: números de linha contínuos e cercas de código visíveis (`conceallevel = 0`).
 - Com um único arquivo não há winbar; ao dividir (`sv`), cada janela de arquivo mostra o nome à direita.
 - Com o foco no Neo-tree, a aba no topo continua mostrando o arquivo, não "neo-tree filesystem".

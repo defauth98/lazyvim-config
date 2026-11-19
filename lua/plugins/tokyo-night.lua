@@ -39,6 +39,10 @@ return {
         hl.StatusLine = { fg = c.fg_dark, bg = transparent }
         hl.StatusLineNC = { fg = c.fg_gutter, bg = transparent }
 
+        -- VS Code-style indent guides: neutral gray, with a brighter active scope.
+        hl.SnacksIndent = { fg = "#404040", nocombine = true }
+        hl.SnacksIndentScope = { fg = "#707070", nocombine = true }
+
         hl.NeogitNormal = { fg = c.fg, bg = transparent }
         hl.NeogitSubtleText = { fg = c.comment, bg = transparent }
         hl.NeogitCommitViewHeader = { fg = c.blue, bg = transparent, bold = true }
